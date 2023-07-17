@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.logout_btn{
+    width: 120px;
+    font-family: 'Comfortaa', cursive;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    margin-right: 30px;
+    border-radius: 30px;
+    color: #00008B;
+    border: 3px solid #00008B;
+    transition: 0.2s ease-in;
+}
+
+.logout_btn:hover{
+    color: white;
+    background-color: #00008B;
+    border: 3px solid rgb(119, 120, 156);
+}
+
+
+.admin-block-main-heading-container{
+    display: flex; 
+    justify-content: center; 
+    margin-top: 20px;
+    margin-bottom: 15px;
+
+}
+
+#admin_block-main-heading{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+}
+
+.each_count-container{
+    position: relative;
+    top: 0;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    transition: 0.3s all ease-in-out;
+}
+
+.each_count-container:hover{
+    top: -15px;
+}
+.each_count-container:hover #count_data-container{
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+#count_data-container{
+    height: 170px; 
+    margin-top: -40px; 
+    width: 350px;
+    padding: 50px; 
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    transition: 0.3s all ease-in-out;
+}
+
+
+.option_card{
+    position: relative;
+    width: 300px;
+    height: 270px;
+    background-color: #f1f6f9;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    border-radius: 20px;
+    transition: 0.3s all ease-in-out;
+}
+
+.option_card:hover{
+    transform: scale(1.05);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.name_btn-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 116px;
+}
+
+#admin_card-heading{
+    font-weight: 700;
+    font-family: 'Comfortaa', cursive;
+    margin-bottom: 20px;
+    
+}
+
+#explore-more-btn{
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-family: 'Comfortaa', cursive;
+    background-color: #f1f6f9;
+    color: #00008B;
+    border: 2px solid #00008B;
+    transition: 0.3s all ease-in-out;
+}
+
+#explore-more-btn:hover{
+    color: white;
+    background-color: #00008B;
+}
+
+.books_switch-modal-title{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.e-book-book-switch-btn{
+    position: relative;
+    width: 180px;
+    margin: 20px;
+    border-radius: 10px;
+    background-color: #467bff;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    top: 0;
+    transition: 0.3s all ease-in-out;
+}
+
+.e-book-book-switch-btn:hover{
+    top: -15px;
+}
+
+#book_switch_name{
+    font-family: 'Montserrat', sans-serif;
+    background-color: #150f7e;
+    padding: 10px 0px;
+    margin-bottom: -10px;
+    margin-top: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: #f1f6f9;
+}
+
+#book-switch_img{
+    filter: invert();
+    max-height: 80px;
+    margin-top: 10px
+}

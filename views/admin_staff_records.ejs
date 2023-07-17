@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Records</title>
+  <!--BOOTSTRAP CSS-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <!--CSS STYLESHEET-->
+  <link rel="stylesheet" href="/css/admin_staff_records.css">
+  <!--ION ICONS-->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+  <!--STAFF RECORD HEADER SECTION-->
+  <div class="header-hero-container">
+    <div class="admin_staff-record-heading-container">
+      <h1 id="admin_staff-records-main-heading">STAFF RECORDS</h1>
+    </div>
+    <div style="display: flex; justify-content: center;">
+      <hr
+      style="width: 10%; margin: auto; margin-top: 10px; border: 2px solid #9BA4B5; border-radius: 30px; opacity: 1;">
+    </div>
+    <form onsubmit="return searching()">
+      <div class="search_field-main-container">
+        <div class="each_search_field-container">
+          <img class="search-icon" src="/images/search.png" alt="">
+          <input type="search" name="name" id='name' class="search_form-input-field" placeholder="Search by Name"
+            autocomplete="off">
+        </div>
+        <div class="each_search_field-container">
+          <img class="search-icon" src="/images/search.png" alt="">
+          <input type="search" name="job" id='job' class="search_form-input-field" placeholder="Search by Job"
+            autocomplete="off">
+        </div>
+        <div class="each_search_field-container">
+          <img class="search-icon" src="/images/search.png" alt="">
+          <input type="search" name="email" id='email' class="search_form-input-field" placeholder="Search by Email"
+            autocomplete="off">
+        </div>
+      </div>
+      <div class="search_btn-container">
+        <input type="submit" value="Search" class="search_btn">
+        <button type="button" class="search_btn" id="staffinfo" data-bs-toggle="modal" data-bs-target="#AddStaffModal">
+          Add staff</button>
+
+      </div>
+    </form>
+  </div>
+
+  <!--STAFF RECORD TABLE SECTION-->
+  <div class="staff_table-container">
+    <table width="100%" style="border-collapse: collapse;">
+      <tr style="background: linear-gradient(109.5deg, rgb(13, 11, 136) 9.4%, rgb(10, 55, 202) 78.4%); transition: none; 
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;">
+        <th>Staff ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Job</th>
+        <th>Manager</th>
+        <th colspan="2">Actions</th>
+      </tr>
+      <% if(staff.length> 0 ){ %>
+        <% for(var i=0; i < staff.length;i++){ %>
+          
+          <tr class="records" style="transition: 0.3s all ease-in-out;">
+            <td><%- staff[i].StaffID%></td>
+            <td><%- staff[i].Name%></td>
+            <td><%- staff[i].Email%></td>
+            <td><%- staff[i].Address%></td>
+            <td><%- staff[i].Job%></td>
+            <td><%- staff[i].Manager%></td>
+            <% if(staff[i].Manager !=null ){ %>
+              <td>
+                <a id="update_delete-links" data-bs-toggle='modal' data-bs-target='#updateModal'
+                  onclick="update_record(this,  '<%= staff[i].StaffID %>')">
+                  Update</a>
+              </td>
+              <td>
+                <a id="update_delete-links"
+                  onclick="delete_record(this, '<%= staff[i].StaffID %>', '<%= staff[i].Email %>')">Delete</a>
+              </td>
+          </tr>
+          <%}else{ %>
+            <td colspan='2'>Not Available</td></tr>
+            <% } %>
+              <%}%>
+              <%}else{ %>
+                <tr class="records"><td colspan="7">Data not found</td></tr>
+                
+                <% } %>
+    </table>
+  </div>
+
+  <!--ADD STAFF MODAL-->
+  <div class="modal" id="AddStaffModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" style="width: 30%;">
+      <div class="modal-content" style="border-radius: 30px;">
+        <div class="modal-header">
+          <h2 class="modal-title" id="ModalTitle">ADD STAFF</h2>
+        </div>
+        <div class="modal-body">
+          <div class="modal_form-content-container" style="margin-top: 12px; display: flex; justify-content: center;">
+            <form action="/addstaff" method="post">
+              <div class="all_row-container">
+                <div class="form__group">
+                  <input id="staff_id" name="staff_id" class="form__field" type="text" value="ST-" required
+                  autocomplete="off">
+                  <label for="staff_id" class="form__label"> Staff ID </label>
+                </div>
+
+                <div class="form__group">
+                  <input id="name" name="name" class="form__field" type="text" placeholder="Staff Name" required
+                  autocomplete="off">
+                  <label for="name" class="form__label"> Staff Name </label>
+                </div>
+
+                <div class="form__group">
+                  <input id="email" name="email" class="form__field" type="email" placeholder="Staff Email" required
+                  autocomplete="off">
+                  <label for="email" class="form__label"> Staff Email </label>
+                </div>
+
+                <div class="form__group">
+                  <input id="password" name="password" class="form__field" type="password" placeholder="Staff Password" required
+                  autocomplete="off">
+                  <label for="password" class="form__label"> Staff Password </label>
+                </div>
+
+                <div class="form__group">
+                  <input id="address" name="address" class="form__field" type="text" 
+                  placeholder="Staff Residential Address" required autocomplete="off">
+                  <label for="address" class="form__label"> Staff Residential Address </label>
+                </div>
+                
+                <div class="form__group">
+                  <select id="job" name="job" class="form__field" required >
+                    <option value="">Job/Role</option>
+                    <option value="Records Manager">Records Manager</option>
+                    <option value="Books Manager">Books Manager</option>
+                    <option value="Ebooks Manager">Ebooks Manager</option>
+                  </select>
+                  <label for="job" class="form__label"> Assigned Job </label>
+                </div>
+              </div>
+
+ 
+              <div class="add_now_btn-container">
+                <button id="add_now_btn">
+                  <span>Add Now</span>
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--UPDATE STAFF MODAL-->
+  <div class="modal" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 30px;">
+        <div class="modal-header">
+          <h2 class="modal-title" id="ModalTitle">UPDATE STAFF</h2>
+        </div>
+        <div class="modal-body">
+          <div class="modal_form-content-container">
+
+            <form action="/updatestaff" method="post" style="display: flex; justify-content: center;">
+              <input type="hidden" name="staff_id" id="ust_id">
+              <div>
+                <div class="modal-input-group">
+                  <Label style="display: block; margin-bottom: 5px; color: #9b9b9b;">Staff Name</Label>
+                  <input id="updatename" name="name" class="form__field" type="text" placeholder="Staff Name"
+                    required>
+                </div>
+                <div class="modal-input-group">
+                  <Label style="display: block; margin-bottom: 5px; color: #9b9b9b;">Staff Email</Label>
+                  <input id="updateemail" name="email" class="form__field" type="email"
+                    placeholder="Staff Email Address" required>
+                </div>
+                <div class="modal-input-group">
+                  <Label style="display: block; margin-bottom: 5px; color: #9b9b9b;">Residential Address</Label>
+                  <input id="updateaddress" name="address" class="form__field" type="text"
+                    placeholder="Staff Residential Address" required>
+                </div>
+                <div class="add_now_btn-container">
+                  <button id="add_now_btn">
+                    <span>Update Now</span>
+                  </button>
+                </div>
+              </div>
+              
+            </form>
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+
+<script>
+  function delete_record(obj, staff_id, email) {
+    console.log(staff_id, email)
+    var req = new XMLHttpRequest();
+    req.open("GET", "/delete-staffrecord?staff_id=" + staff_id + "&email=" + email, true);
+    req.send()
+    req.onreadystatechange = function () {
+      const staff = staff_id
+      if (req.readyState == 4 && req.status == 200) {
+        if(req.responseText == 'books manager'){
+        alert("You cannot delete the only member who is managing the books")
+        
+      }
+        else if(req.responseText == 'ebooks manager'){
+        alert("You cannot delete the only member who is managing the ebooks")
+        
+      }
+        else if(req.responseText == 'records manager'){
+        alert("You cannot delete the only member who is managing the records")
+        
+      }
+      else{
+        alert(req.responseText)
+        obj.parentElement.parentElement.remove();
+      }
+      }
+    }
+
+  }
+
+  function update_record(obj, staff_id) {
+    console.log(staff_id)
+    var req = new XMLHttpRequest();
+
+    req.open("GET", "/updatestaff?staff_id=" + staff_id, true);
+    req.send()
+    req.onreadystatechange = function () {
+      if (req.readyState == 4 && req.status == 200) {
+        const obj = JSON.parse(req.responseText);
+        document.getElementById('ust_id').value = obj[0].staffid;
+        document.getElementById('updatename').value = obj[0].name;
+        document.getElementById('updateemail').value = obj[0].email;
+        document.getElementById('updateaddress').value = obj[0].address;
+        // document.getElementById('updatejob').value = obj[0].job;
+        // document.getElementById('check').value = req.responseText
+      }
+    }
+
+  }
+  function searching() {
+    document.querySelectorAll(".records").forEach(function (xyz) {
+      xyz.remove();
+    })
+
+    const table = document.getElementsByTagName('table')[0];
+
+    const name = document.getElementById('name').value
+    const job = document.getElementById('job').value
+    const email = document.getElementById('email').value
+
+    const req = new XMLHttpRequest();
+    req.open('GET', '/searchingstaff?name=' + name + '&job=' + job + '&email=' + email);
+    req.send();
+    req.onreadystatechange = function () {
+      if (req.readyState == 4 && req.status == 200) {
+        const obj = JSON.parse(req.responseText);
+        if (obj.length > 0) {
+          for (let i = 0; i < obj.length; i++) {
+            if (obj[i].Manager == null) {
+
+
+              table.innerHTML += "<tr class='records'><td>" + obj[i]['StaffID'] + "</td><td>" + obj[i]['Name'] + "</td><td>" + obj[i]['Email'] + "</td><td>" + obj[i]['Address'] + "</td><td>" + obj[i]['Job'] + "</td><td>" + '' + "</td><td colspan='2'>" + 'Not Available' + "</td></tr>"
+
+            }
+            else {
+              table.innerHTML += "<tr class='records'><td>" + obj[i]['StaffID'] + "</td><td>" + obj[i]['Name'] + "</td><td>" + obj[i]['Email'] + "</td><td>" + obj[i]['Address'] + "</td><td>" + obj[i]['Job'] + "</td><td>" + obj[i]['Manager'] + "</td><td><a id='update_delete-links' data-bs-toggle='modal'  data-bs-target='#updateModal' onclick=\"update_record(this, '" + obj[i]['StaffID'] + "')\">Update</a></td><td><a id='update_delete-links' onclick=\"delete_record(this, '" + obj[i]['StaffID'] + "', '" + obj[i]['Email'] + "')\">Delete</a></td></tr>";
+
+            }
+          }
+        }
+        else {
+          table.innerHTML += "<tr class='records'><td colspan='7'  style='text-align: center;' >Data not found</td></tr>"
+        }
+      }
+    }
+    return false;
+  }
+</script>

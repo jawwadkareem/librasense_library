@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Records</title>
+    <!--BOOTSTRAP CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!--CSS STYLESHEET-->
+    <link rel="stylesheet" href="/css/admin_book_records.css">
+    <!--ION ICONS-->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+    <!--ADMIN BOOK RECORD HEADER SECTION-->
+    <div class="header-hero-container">
+        <div class="admin_book-record-heading-container">
+            <h1 id="admin_book-records-main-heading">BOOK RECORDS</h1>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <hr
+                style="width: 10%; margin: auto; margin-top: 10px; border: 2px solid #9BA4B5; border-radius: 30px; opacity: 1;">
+        </div>
+        <form onsubmit="return searching()">
+            <div class="search_field-main-container">
+                <div class="each_search_field-container">
+                    <img class="search-icon" src="/images/search.png" alt="">
+                    <input type="search" name="title" id='title' class="search_form-input-field"
+                        placeholder="Search by Title" autocomplete="off">
+                </div>
+                <div class="each_search_field-container">
+                    <img class="search-icon" src="/images/search.png" alt="">
+                    <input type="search" name="author" id='author' class="search_form-input-field"
+                        placeholder="Search by Author" autocomplete="off">
+                </div>
+                <div class="each_search_field-container">
+                    <img class="search-icon" src="/images/search.png" alt="">
+                    <input type="search" name="category" id='category' class="search_form-input-field"
+                        placeholder="Search by Category" autocomplete="off">
+                </div>
+            </div>
+            <div class="search_btn-container">
+                <input type="submit" value="Search" class="search_btn">
+                <button type="button" class="search_btn" id="staffinfo" data-bs-toggle="modal"
+                    data-bs-target="#AddStaffModal" onclick="add_record()">Add Book</button>
+            </div>
+        </form>
+    </div>
+
+    <!--STAFF RECORD TABLE SECTION-->
+    <div class="staff_table-container">
+        <table width="100%" style="border-collapse: collapse;">
+            <tr style="background: linear-gradient(to right, rgb(5, 117, 230), rgb(2, 27, 121)); transition: none; 
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;">
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Publisher ID</th>
+                <th>Publisher</th>
+                <th>Publication Year</th>
+                <th>Availability</th>
+                <th>Condition</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            <% if(book.length> 0 ){ %>
+                <% for(var i=0; i < book.length;i++){ %>
+                    <tr class="records" style="transition: 0.3s all ease-in-out;">
+                        <td><%- book[i].isbn%></td>
+                        <td><%- book[i].title%></td>
+                        <td><%- book[i].author%></td>
+                        <td><%- book[i].category%></td>
+                        <td><%- book[i].price%></td>
+                        <td><%- book[i].publisher_id%></td>
+                        <td><%- book[i].publisher%></td>
+                        <td><%- book[i].year%></td>
+                        <td><%- book[i].availability%></td>
+                        <td><%- book[i].condition%></td>
+                        <td>
+                            <a id="update_delete-links" data-bs-toggle='modal' data-bs-target='#updateModal'
+                                onclick="update_record(this,  '<%= book[i].isbn %>')">
+                                Update</a>
+                        </td>
+
+                        <td>
+                            <a id="update_delete-links"
+                                onclick="delete_record(this, '<%= book[i].isbn %>', '<%= book[i].title %>', '<%= book[i].publisher_id %>')">Delete</a>
+                        </td>
+                    </tr>
+                    <%}%>
+                        <%}else{ %>
+                            <tr class="records" style="transition: 0.3s all ease-in-out;">
+                                <td colspan="11">Data not found</td>
+                            </tr>
+
+                            <% } %>
+        </table>
+    </div>
+
+    <!--ADD BOOK MODAL-->
+    <div class="modal" id="AddStaffModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered modal-xl" style="width: 48%;">
+            <div class="modal-content" style="border-radius: 30px;">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="ModalTitle">ADD A BOOK</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="modal_form-content-container" style="margin-top: 12px;">
+                        <form action="/addbook" method="post">
+
+                            <div class="add-book-modal-row">
+                                <div class="form__group">
+                                    <input type="text" class="form__field" placeholder="Book Title" id="title"
+                                        name="title" autocomplete="off" required>
+                                    <label for="name" class="form__label"> Book Title </label>
+                                </div>
+
+                                <div class="form__group">
+                                    <input type="text" class="form__field" placeholder="Book Title" id="author"
+                                        name="author" autocomplete="off" required>
+                                    <label for="name" class="form__label"> Author Name </label>
+                                </div>
+                            </div>
+
+                            <div class="add-book-modal-row">
+                                <div class="form__group">
+                                    <input type="text" class="form__field" placeholder="ISBN Number" id="isbn"
+                                        name="isbn" autocomplete="off" required>
+                                    <label for="name" class="form__label"> ISBN </label>
+                                </div>
+
+                                <div class="form__group">
+                                    <input type="text" class="form__field" placeholder="Category" id="category"
+                                        name="category" autocomplete="off" required>
+                                    <label for="name" class="form__label"> Category </label>
+                                </div>
+                            </div>
+
+                            <div class="add-book-modal-row">
+                                <div class="form__group">
+                                    <input type="text" class="form__field" placeholder="Publisher Name" id="publisher"
+                                        name="publisher" autocomplete="off" required>
+                                    <label for="name" class="form__label"> Publisher Name </label>
+                                </div>
+
+                                <div class="form__group">
+                                    <input type="number" class="form__field" placeholder="Publication Year" id="year"
+                                        name="year" autocomplete="off" required>
+                                    <label for="name" class="form__label"> Publication Year </label>
+                                </div>
+                            </div>
+
+                            <div class="add-book-modal-row">
+                                <div class="form__group">
+                                    <input type="number" class="form__field" placeholder="Borrow Price" id="price"
+                                        name="price" autocomplete="off" required style="width: 208px;">
+                                    <label for="name" class="form__label"> Borrow Price </label>
+                                </div>
+
+                                <div class="form__group">
+                                    <select class="form__field" id="condition" name="condition" style="width: 208px;"
+                                        required>
+                                        <option value="">Condition</option>
+                                        <option value="Excellent">Excellent</option>
+                                        <option value="Good">Good</option>
+                                        <option value="Bad">Bad</option>
+                                    </select>
+                                    <label for="condition" class="form__label"> Condition </label>
+                                </div>
+                                <div class="form__group">
+                                    <select class="form__field" id="staffmem" name="staffmem" required
+                                        style="width: 208px;">
+                                        <option value="">Managed By</option>
+                                    </select>
+                                    <label for="staffmem" class="form__label"> Managed By </label>
+                                </div>
+                            </div>
+
+
+                            <div class="modal-input-group" style="margin-left: 20px;">
+                                <input type="file" id="imageInput" required style="font-family: 'Comfortaa', cursive;">
+                                <button type="button" id="successimage" onclick="uploadImage()">Upload</button>
+                            </div>
+                            <div class="add_now_btn-container">
+                                <button id="add_now_btn">
+                                    <span >Add Now</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--UPDATE BOOK MODAL-->
+    <div class="modal" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered" style="width: 30%;">
+            <div class="modal-content" style="border-radius: 30px;">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="ModalTitle">UPDATE A BOOK</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="modal_form-content-container">
+
+                        <form action="/updatebook" method="post"
+                            style="display: flex; justify-content: center; font-family: 'Comfortaa', cursive;">
+                            <input type="hidden" name="isbn" id="isbn_book">
+                            <div class="update_all_input-fields">
+                                <div class="modal-input-group" style="margin-bottom: 10px;">
+                                    <Label style="display: block; margin-bottom: 5px; color: #9b9b9b;">Borrow
+                                        Price</Label>
+                                    <input id="priceupdate" name="price" class="form__field" type="number"
+                                        placeholder="Price in Rupees" required>
+                                </div>
+                                <div class="modal-input-group" style="margin-bottom: 10px;">
+                                    <Label style="display: block; margin-bottom: 5px; color: #9b9b9b;">Condition</Label>
+                                    <!-- <input id="updatecondition" name="condition" class="form__field" type="text"
+                                        placeholder="Condition(Old or New)" required> -->
+                                    <select class="form__field" id="updatecondition" name="condition" required>
+                                        <option value="">Condition</option>
+                                        <!-- <option value="Excellent">Excellent</option>
+                                            <option value="Good">Good</option>
+                                            <option value="Bad">Bad</option> -->
+                                    </select>
+                                </div>
+                                <div class="modal-input-group" style="margin-bottom: 10px;">
+                                    <Label
+                                        style="display: block; margin-bottom: 5px; color: #9b9b9b;">Availability</Label>
+                                    <!-- <input id="updateavailable" name="availability" class="form__field" type="text"
+                                        placeholder="Availability(Yes or No)" required> -->
+                                        <select class="form__field" id="updateavailable" name="availability"
+                                        required>
+                                        <option value="">Availability</option>
+                                        
+                                    </select>
+                                    </div>
+                                <div class="add_now_btn-container">
+                                    <button id="add_now_btn">
+                                        <span>Update Now</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    function delete_record(obj, isbn, title, publisher_id) {
+        var req = new XMLHttpRequest();
+        req.open("GET", "/delete-bookrecord?isbn=" + isbn + "&title=" + title + "&publisher_id=" + publisher_id, true);
+        req.send()
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200) {
+                
+                if (req.responseText){
+                    alert(req.responseText + 'is removed from the database')
+                    obj.parentElement.parentElement.remove();}
+                else{alert('You cannot delete a book which is borrowed by some users, this would result in data loss')
+
+            }
+            }
+        }
+
+    }
+    function add_record() {
+        var req = new XMLHttpRequest();
+        req.open("GET", "/addbook");
+        req.send();
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200) {
+                const options = JSON.parse(req.responseText);
+
+                var selectElement = document.getElementById("staffmem");
+
+                selectElement.innerHTML = "";
+
+                var defaultOption = document.createElement("option");
+                defaultOption.value = "";
+                defaultOption.textContent = "Managed By";
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                selectElement.appendChild(defaultOption);
+
+
+                options.forEach(function (option) {
+                    var optionElement = document.createElement("option");
+                    optionElement.value = option.staff_id;
+                    optionElement.textContent = option.staff_id;
+                    selectElement.appendChild(optionElement);
+                });
+
+                selectElement.required = true;
+            }
+        };
+    }
+
+
+    function update_record(obj, isbn, title) {
+        var req = new XMLHttpRequest();
+
+        req.open("GET", "/updatebook?isbn=" + isbn, true);
+        req.send()
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200) {
+                const obj = JSON.parse(req.responseText);
+                document.getElementById('isbn_book').value = obj[0].isbn;
+                document.getElementById('priceupdate').value = obj[0].price;
+                // document.getElementById('updatecondition').value = obj[0].book_condition;
+                // document.getElementById('updateavailable').value = obj[0].availability;
+                
+
+                condition = document.getElementById('updatecondition');
+                condition.innerHTML = ''
+                var defaultOption = document.createElement("option");
+                defaultOption.value = obj[0].book_condition;
+                defaultOption.textContent = 'Same as before';
+                // defaultOption.disabled = true;
+                defaultOption.selected = true;
+
+                condition.appendChild(defaultOption);
+                var optionElement = document.createElement("option");
+                optionElement.value = 'Excellent'
+                optionElement.textContent = "Excellent"
+                condition.appendChild(optionElement);
+
+
+                var optionElement = document.createElement("option");
+                optionElement.value = 'Good'
+                optionElement.textContent = "Good"
+                condition.appendChild(optionElement);
+
+                var optionElement = document.createElement("option");
+                optionElement.value = 'Bad'
+                optionElement.textContent = "Bad"
+                condition.appendChild(optionElement);
+
+
+
+                available = document.getElementById('updateavailable');
+
+                available.innerHTML = ''
+                var defaultOption = document.createElement("option");
+                defaultOption.value = obj[0].availability;
+                defaultOption.textContent = 'Same as before';
+                // defaultOption.disabled = true;
+                defaultOption.selected = true;
+
+                available.appendChild(defaultOption);
+                var optionElement = document.createElement("option");
+                optionElement.value = 'Yes'
+                optionElement.textContent = "Yes"
+                available.appendChild(optionElement);
+
+
+                var optionElement = document.createElement("option");
+                optionElement.value = 'No'
+                optionElement.textContent = "No"
+                available.appendChild(optionElement);
+            }
+        }
+
+    }
+    function searching() {
+        document.querySelectorAll(".records").forEach(function (xyz) {
+            xyz.remove();
+        })
+
+        const table = document.getElementsByTagName('table')[0];
+
+        const title = document.getElementById('title').value
+        const author = document.getElementById('author').value
+        const category = document.getElementById('category').value
+
+        const req = new XMLHttpRequest();
+        req.open('GET', '/searchingbook?title=' + title + '&author=' + author + '&category=' + category);
+        req.send();
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200) {
+                const obj = JSON.parse(req.responseText);
+                if (obj.length > 0) {
+                    for (let i = 0; i < obj.length; i++) {
+
+
+                        table.innerHTML += "<tr class='records'><td>" + obj[i]['isbn'] + "</td><td>" + obj[i]['title'] + "</td><td>" + obj[i]['author'] + "</td><td>" + obj[i]['category'] + "</td><td>" + obj[i]['price'] + "</td><td>" + obj[i]['publisher_id'] + "</td><td>" + obj[i]['publisher'] + "</td><td>" + obj[i]['year'] + "</td><td>" + obj[i]['availability'] + "</td><td>" + obj[i]['condition'] + "</td><td><a id='update_delete-links' data-bs-toggle='modal'  data-bs-target='#updateModal' onclick=\"update_record(this, '" + obj[i]['isbn'] + "')\">Update</a></td><td><a id='update_delete-links' onclick=\"delete_record(this, '" + obj[i]['isbn'] + "', '" + obj[i]['title'] + "','" + obj[i]['publisher_id'] + "')\">Delete</a></td></tr>";
+
+
+                    }
+                }
+                else {
+                    table.innerHTML += "<tr class='records'><td colspan='11'  style='text-align: center;' >Data not found</td></tr>"
+                }
+            }
+        }
+        return false;
+    }
+
+    function uploadImage() {
+        const isbn = document.getElementById('isbn').value;
+        const input = document.getElementById('imageInput');
+        const file = input.files[0];
+
+        const formData = new FormData();
+        formData.append('isbn', isbn);
+        formData.append('image', file);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/upload?isbn=' + isbn + '&type=books');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    const image = document.getElementById('successimage');
+                    image.innerText = 'Image uploaded successfully'
+                    // alert('Image uploaded successfully!');
+                }
+                else if (xhr.status == 400) {
+                    alert('Select a image')
+                }
+                else {
+                    const image = document.getElementById('successimage');
+                    image.innerText = 'Error in uploading image'
+                }
+            }
+        };
+        xhr.send(formData);
+    }
+
+    // function uploadImage() {
+    //     const isbn = document.getElementById('isbn').value;
+    //     const input = document.getElementById('imageInput');
+    //     const file = input.files[0];
+
+    //     const formData = new FormData();
+    //     formData.append('isbn', isbn);
+    //     formData.append('image', file);
+
+    //     const xhr = new XMLHttpRequest();
+
+    //     xhr.open('POST', '/upload?isbn=' + isbn + '&type=book');
+    //     xhr.send(formData);
+    //     xhr.onreadystatechange = function () {
+    //         if (xhr.readyState === XMLHttpRequest.DONE) {
+    //             if (xhr.status === 200) {
+    //                 console.log('Successful')
+    //             }
+
+    //         }
+    //     };
+      
+    // }
+
+</script>

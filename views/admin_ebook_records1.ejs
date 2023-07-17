@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBook Records</title>
+    <!--BOOTSTRAP CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!--CSS STYLESHEET-->
+    <link rel="stylesheet" href="/css/admin_book_records.css">
+    <!--ION ICONS-->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+    <!--STAFF RECORD HEADER SECTION-->
+    <div class="header-hero-container">
+        <div class="admin_book-record-heading-container">
+            <h1 id="admin_book-records-main-heading">EBOOK RECORDS</h1>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <hr
+                style="width: 15%; margin: auto; margin-top: 10px; border: 1px solid #9BA4B5; border-radius: 30px; opacity: 1;">
+        </div>
+        <form onsubmit="return searching()">
+            <div class="search_field-main-container">
+                <div class="each_search_field-container">
+                    <ion-icon name="search-outline" class="search-icon"></ion-icon>
+                    <input type="search" name="title" id='title' class="search_form-input-field"
+                        placeholder="Search by Title" autocomplete="off">
+                </div>
+                <div class="each_search_field-container">
+                    <ion-icon name="search-outline" class="search-icon"></ion-icon>
+                    <input type="search" name="author" id='author' class="search_form-input-field"
+                        placeholder="Search by Author" autocomplete="off">
+                </div>
+                <div class="each_search_field-container">
+                    <ion-icon name="search-outline" class="search-icon"></ion-icon>
+                    <input type="search" name="category" id='category' class="search_form-input-field"
+                        placeholder="Search by Category" autocomplete="off">
+                </div>
+            </div>
+            <div class="search_btn-container">
+                <input type="submit" value="Search" class="search_btn">
+                <button type="button" class="search_btn" id="staffinfo" data-bs-toggle="modal"
+                    data-bs-target="#AddStaffModal" onclick="add_record()">Add Ebook</button>
+            </div>
+        </form>
+    </div>
+
+    <!--STAFF RECORD TABLE SECTION-->
+    <div class="staff_table-container">
+        <table width="100%" style="border-collapse: collapse;">
+            <tr>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Publisher ID</th>
+                <th>Publisher</th>
+                <th>Publication Year</th>
+                <th>File Size(MB)</th>
+                <th>File Format</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            <% if(book.length> 0 ){ %>
+                <% for(var i=0; i < book.length;i++){ %>
+                    <tr class="records">
+                        <td><%- book[i].isbn%></td>
+                        <td><%- book[i].title%></td>
+                        <td><%- book[i].author%></td>
+                        <td><%- book[i].category%></td>
+                        <td><%- book[i].price%></td>
+                        <td><%- book[i].publisher_id%></td>
+                        <td><%- book[i].publisher%></td>
+                        <td><%- book[i].year%></td>
+                        <td><%- book[i].file_size%></td>
+                        <td><%- book[i].file_format%></td>
+                        <td>
+                            <a id="update_delete-links" data-bs-toggle='modal' data-bs-target='#updateModal'
+                                onclick="update_record(this,  '<%= book[i].isbn %>')">
+                                Update</a>
+                        </td>
+
+                        <td>
+                            <a id="update_delete-links"
+                                onclick="delete_record(this, '<%= book[i].isbn %>', '<%= book[i].title %>', '<%= book[i].publisher_id %>')">Delete</a>
+                        </td>
+                    </tr>
+                    <%}%>
+                        <%}else{ %>
+                            <tr class="records">
+                                <td colspan="11">Data not found</td>
+                            </tr>
+
+                            <% } %>
+        </table>
+    </div>
+
+    <!--ADD STAFF MODAL-->
+    <div class="modal" id="AddStaffModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 30px;">
+                <div class="modal-header"
+                    style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;">
+                    <h2 class="modal-title" id="ModalTitle">ADD EBOOK</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="modal_form-content-container" style="margin-top: 12px;">
+                        <form action="/addebook" method="post">
+                            <div class="modal-input-group">
+                                <ion-icon name="id-card-outline" class="input_field_icon"></ion-icon>
+                                <input id="isbn" name="isbn" class="modal-input-field" type="text" placeholder="ISBN"
+                                    required autocomplete="off">
+                            </div>
+                            <div class="modal-input-group">
+                                <ion-icon name="person-outline" class="input_field_icon"></ion-icon>
+                                <input id="title" name="title" class="modal-input-field" type="text"
+                                    placeholder="Book Title" required autocomplete="off">
+                            </div>
+                            <div class="modal-input-group">
+                                <ion-icon name="person-outline" class="input_field_icon"></ion-icon>
+                                <input id="author" name="author" class="modal-input-field" type="text"
+                                    placeholder="Author Name" required autocomplete="off">
+                            </div>
+                            <div class="modal-input-group">
+                                <ion-icon name="mail-outline" class="input_field_icon"></ion-icon>
+                                <input id="category" name="category" class="modal-input-field" type="text"
+                                    placeholder="Category" required autocomplete="off">
+                            </div>
+                            <div class="modal-input-group">
+                                <ion-icon name="lock-open-outline" class="input_field_icon"></ion-icon>
+                                <input id="price" name="price" class="modal-input-field" type="number"
+                                    placeholder="Price" required autocomplete="off">
+                            </div>
+                            <div class="modal-input-group">
+                                <ion-icon name="location-outline" class="input_field_icon"></ion-icon>
+                                <input id="publisher" name="publisher" class="modal-input-field" type="text"
+                                    placeholder="Publisher Name" required autocomplete="off">
+                            </div>
+                            <div class="modal-input-group">
+                                <ion-icon name="location-outline" class="input_field_icon"></ion-icon>
+                                <input id="year" name="year" class="modal-input-field" type="number"
+                                    placeholder="Publication Year" required autocomplete="off">
+                            </div>
+                            <div class="modal-input-group">
+                                <ion-icon name="briefcase-outline" class="input_field_icon"></ion-icon>
+                                <input id="filesize" name="filesize" class="modal-input-field" type="text"
+                                    placeholder="File Size(MBs)" required autocomplete="off">
+                            </div>
+                            <div class="modal-input-group">
+                                <ion-icon name="briefcase-outline" class="input_field_icon"></ion-icon>
+                                <input id="fileformat" name="fileformat" class="modal-input-field" type="text"
+                                    placeholder="File Format(PDF or DOCX)" required autocomplete="off">
+                            </div>
+                            <div class="modal-input-group">
+                                <ion-icon name="briefcase-outline" class="input_field_icon"></ion-icon>
+                                <select id="staffmem" name="staffmem" class="modal-input-field" required>
+                                    <option value="">Managed By</option>
+
+
+
+
+                                </select>
+                            </div>
+                            <div class="modal-input-group">
+                                <input type="file" id="imageInput" required>
+                                    
+                                </div>
+                            <div class="add_now_btn-container">
+                                <button id="add_now_btn">
+                                    <span onclick="uploadImage()">Add Now</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--UPDATE STAFF MODAL-->
+    <div class="modal" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 30px;">
+                <div class="modal-header"
+                    style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;">
+                    <h2 class="modal-title" id="ModalTitle">UPDATE BOOK</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="modal_form-content-container">
+
+                        <form action="/updateebook" method="post">
+                            <input type="hidden" name="isbn" id="isbn_book">
+                            <div class="modal-input-group">
+                                <ion-icon name="person-outline" class="input_field_icon"></ion-icon>
+                                <input id="priceupdate" name="price" class="modal-input-field" type="number"
+                                    placeholder="Price in Rupees" required>
+                            </div>
+
+                            <div class="add_now_btn-container">
+                                <button id="add_now_btn">
+                                    <span>Update Now</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    function delete_record(obj, isbn, title, publisher_id) {
+        var req = new XMLHttpRequest();
+        req.open("GET", "/delete-ebookrecord?isbn=" + isbn + "&title=" + title + "&publisher_id=" + publisher_id, true);
+        req.send()
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200) {
+                alert(req.responseText)
+                obj.parentElement.parentElement.remove();
+            }
+        }
+
+    }
+    function add_record() {
+        var req = new XMLHttpRequest();
+        req.open("GET", "/addebook");
+        req.send();
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200) {
+                const options = JSON.parse(req.responseText);
+
+                var selectElement = document.getElementById("staffmem");
+
+                selectElement.innerHTML = "";
+
+                var defaultOption = document.createElement("option");
+                defaultOption.value = "";
+                defaultOption.textContent = "Managed by";
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                selectElement.appendChild(defaultOption);
+
+
+                options.forEach(function (option) {
+                    var optionElement = document.createElement("option");
+                    optionElement.value = option.staff_id;
+                    optionElement.textContent = option.staff_id;
+                    selectElement.appendChild(optionElement);
+                });
+
+                selectElement.required = true;
+            }
+        };
+    }
+    function update_record(obj, isbn) {
+        var req = new XMLHttpRequest();
+
+        req.open("GET", "/updateebook?isbn=" + isbn, true);
+        req.send()
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200) {
+                const obj = JSON.parse(req.responseText);
+                document.getElementById('isbn_book').value = obj[0].isbn;
+                document.getElementById('priceupdate').value = obj[0].price;
+            }
+        }
+
+    }
+    function searching() {
+        document.querySelectorAll(".records").forEach(function (xyz) {
+            xyz.remove();
+        })
+
+        const table = document.getElementsByTagName('table')[0];
+
+        const title = document.getElementById('title').value
+        const author = document.getElementById('author').value
+        const category = document.getElementById('category').value
+
+        const req = new XMLHttpRequest();
+        req.open('GET', '/searchingebook?title=' + title + '&author=' + author + '&category=' + category);
+        req.send();
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200) {
+                const obj = JSON.parse(req.responseText);
+                if (obj.length > 0) {
+                    for (let i = 0; i < obj.length; i++) {
+
+
+                        table.innerHTML += "<tr class='records'><td>" + obj[i]['isbn'] + "</td><td>" + obj[i]['title'] + "</td><td>" + obj[i]['author'] + "</td><td>" + obj[i]['category'] + "</td><td>" + obj[i]['price'] + "</td><td>" + obj[i]['publisher_id'] + "</td><td>" + obj[i]['publisher'] + "</td><td>" + obj[i]['year'] + "</td><td>" + obj[i]['file_size'] + "</td><td>" + obj[i]['file_format'] + "</td><td><a id='update_delete-links' data-bs-toggle='modal'  data-bs-target='#updateModal' onclick=\"update_record(this, '" + obj[i]['isbn'] + "')\">Update</a></td><td><a id='update_delete-links' onclick=\"delete_record(this, '" + obj[i]['isbn'] + "', '" + obj[i]['title'] + "','" + obj[i]['publisher_id'] + "')\">Delete</a></td></tr>";
+
+
+                    }
+                }
+                else {
+                    table.innerHTML += "<tr class='records'><td colspan='11'  style='text-align: center;' >Data not found</td></tr>"
+                }
+            }
+        }
+        return false;
+    }
+
+    function uploadImage() {
+  const isbn = document.getElementById('isbn').value;
+  const input = document.getElementById('imageInput');
+  const file = input.files[0];
+
+  const formData = new FormData();
+  formData.append('isbn', isbn);
+  formData.append('image', file);
+
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/upload?isbn=' + isbn+'&type=ebook');
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        const image = document.getElementById('successimage');
+        image.innerText = 'Image uploaded successfully'
+        // alert('Image uploaded successfully!');
+      }
+      else{
+        const image = document.getElementById('successimage');
+        image.innerText = 'Error in uploading image'
+      }
+    }
+  };
+
+  xhr.send(formData);
+  return false;
+}
+
+</script>

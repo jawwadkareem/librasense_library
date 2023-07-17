@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Records</title>
+    <!--CSS STYLESHEET-->
+    <link rel="stylesheet" href="/css/admin_user-records.css"> 
+   
+    <!--ION ICONS-->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+    <div class="header-hero-container" style="position: sticky-top;">
+        <div class="admin_user-record-heading-container">
+            <h1 id="admin_user-records-main-heading">USER RECORDS</h1>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <hr style="width: 10%; margin: auto; margin-top: 10px; border: 2px solid #9BA4B5; border-radius: 30px; opacity: 1;">
+        </div>
+        <form onsubmit="return searching()">
+            <div class="search_field-main-container">        
+                <div class="each_search_field-container">
+                    <img class="search-icon" src="/images/search.png" alt="">
+                    <input type="search" name="name" id='name' class="search_form-input-field" placeholder="Search by Name" autocomplete="off">
+                </div>
+                <div class="each_search_field-container">
+                    <img class="search-icon" src="/images/search.png" alt="">
+                    <input type="search" name="addess" id='address' class="search_form-input-field" placeholder="Search by Address" autocomplete="off">
+                </div>
+                <div class="each_search_field-container">
+                    <img class="search-icon" src="/images/search.png" alt="">
+                    <input type="search" name="email" id='email' class="search_form-input-field" placeholder="Search by Email" autocomplete="off">
+                </div>
+            </div>
+            <div class="search_btn-container">        
+                <input type="submit" value="Search" class="search_btn">
+            </div>
+        </form>
+    </div>
+
+    <div class="user_table-container" style="display: flex; justify-content: center; margin-top: 50px;">
+        <table width="95%" style="border-collapse: collapse;">
+            <tr style="background: linear-gradient(89deg, rgb(27, 8, 237) 0.1%, rgb(15, 27, 123) 51.5%, rgb(47, 30, 238)100.2%); transition: none; 
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;">
+                <th>User ID</th>
+                <th>Full Name</th>
+                <th>Email Address</th>
+                <th>Residential Address</th>
+                <th>Telephone No.</th>
+            </tr>
+            <% if(users.length> 0 ){ %>
+                <% for(var i=0; i < users.length;i++){ %>
+                    <tr class="records" style="transition: 0.3s all ease-in-out;">
+                        <td><%- users[i].UserID%></td>
+                        <td><%- users[i].Name%></td>
+                        <td><%- users[i].Email%></td>
+                        <td><%- users[i].Address%></td>
+                        <% if(users[i].UserID==users[i+1].UserID ){ %>
+                            <td><%- users[i].Contact%>,<%- users[i+1].Contact%></td>
+                            <%i+=1%>
+                                <%}else{%>
+                                    <td><%- users[i].Contact%></td>
+                                    <% } %>
+                    </tr>
+                    <%}%>
+                        <%}else{ %>
+                            <tr class="records">
+                                <td colspan="5">Data not found</td>
+                            </tr>
+                            <% } %>
+        </table>
+    </div>
+</body>
+
+</html>
+
+<script>
+        function searching() {
+        document.querySelectorAll(".records").forEach(function (xyz) {
+            xyz.remove();
+        });
+
+        const table = document.getElementsByTagName('table')[0];
+        const name = document.getElementById('name').value;
+        const address = document.getElementById('address').value;
+        const email = document.getElementById('email').value;
+
+        const req = new XMLHttpRequest();
+        req.open('GET', '/searching?name=' + name + '&address=' + address + '&email=' + email);
+        req.send();
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200) {
+                const obj = JSON.parse(req.responseText);
+                if (obj.length > 0) {
+                    const users = {};
+                    for (let i = 0; i < obj.length; i++) {
+                        const userID = obj[i]['UserID'];
+                        const contact = obj[i]['Contact'];
+                        const name = obj[i]['Name'];
+                        const email = obj[i]['Email'];
+                        const address = obj[i]['Address'];
+
+                        if (!users[userID]) {
+                            users[userID] = {
+                                userID: userID,
+                                name: name,
+                                email: email,
+                                address: address,
+                                contact: [contact]
+                            };
+                        } else {
+                            users[userID].contact.push(contact);
+                        }
+                    }
+
+                    for (const userID in users) {
+                        const record = users[userID];
+                        const contactHTML = record.contact.join(', ') || 'Not Available';
+                        table.innerHTML += "<tr class='records'><td>" + record.userID + "</td><td>" + record.name + "</td><td>" + record.email + "</td><td>" + record.address + "</td><td>" + contactHTML + "</td></tr>";
+                    }
+                } else {
+                    table.innerHTML += "<tr class='records'><td colspan='5' style='text-align: center;'>Data not found</td></tr>";
+                }
+            }
+        };
+
+        return false;
+    }
+
+//     function searching() {
+//     document.querySelectorAll(".records").forEach(function (xyz) {
+//         xyz.remove();
+//     });
+
+//     const table = document.getElementsByTagName('table')[0];
+//     const name = document.getElementById('name').value;
+//     const address = document.getElementById('address').value;
+//     const email = document.getElementById('email').value;
+
+//     const req = new XMLHttpRequest();
+//     req.open('GET', '/searching?name=' + name + '&address=' + address + '&email=' + email);
+//     req.send();
+//     req.onreadystatechange = function () {
+//         if (req.readyState == 4 && req.status == 200) {
+//             const obj = JSON.parse(req.responseText);
+//             if (obj.length > 0) {
+//                 for (let i = 0; i < obj.length; i++) {
+//                     const userID = obj[i]['UserID'];
+//                     const contact = obj[i]['Contact'];
+//                     const name = obj[i]['Name'];
+//                     const email = obj[i]['Email'];
+//                     const address = obj[i]['Address'];
+//                     const nextContact = obj[i + 1] ? obj[i + 1]['Contact'] : 'Not Available';
+
+//                     let contactHTML = '';
+//                     if (contact && nextContact) {
+//                         contactHTML = contact + ', ' + nextContact;
+    
+//                     } else if (contact) {
+//                         contactHTML = contact;
+//                     }
+
+//                     table.innerHTML += "<tr class='records'><td>" + userID + "</td><td>" + name + "</td><td>" + email + "</td><td>" + address + "</td><td>" + contactHTML + "</td></tr>";
+//                 }
+//             } else {
+//                 table.innerHTML += "<tr class='records'><td colspan='5' style='text-align: center;'>Data not found</td></tr>";
+//             }
+//         }
+//     };
+
+//     return false;
+// }
+
+    // function searching() {
+
+
+    //     document.querySelectorAll(".records").forEach(function (xyz) {
+    //         xyz.remove();
+    //     })
+
+    //     const table = document.getElementsByTagName('table')[0];
+
+    //     const name = document.getElementById('name').value
+    //     const address = document.getElementById('address').value
+    //     const email = document.getElementById('email').value
+
+    //     const req = new XMLHttpRequest();
+    //     req.open('GET', '/searching?name=' + name + '&address=' + address + '&email=' + email);
+    //     req.send();
+    //     req.onreadystatechange = function () {
+    //         if (req.readyState == 4 && req.status == 200) {
+    //             const obj = JSON.parse(req.responseText);
+    //             if (obj.length > 0) {
+    //                 for (let i = 0; i < obj.length; i++) {console.log(obj[i])
+    //                     table.innerHTML += "<tr class='records'><td>" + obj[i]['UserID'] + "</td><td>" + obj[i]['Name'] + "</td><td>" + obj[i]['Email'] + "</td><td>" + obj[i]['Address'] + "</td><td>" + obj[i]['Contact'] + "</td></tr>"
+    //                 }
+    //             }
+    //             else {
+    //                 table.innerHTML += "<tr class='records'><td colspan='5'  style='text-align: center;' >Data not found</td></tr>"
+    //             }
+    //         }
+    //     }
+
+    //     return false;
+    // }
+</script>

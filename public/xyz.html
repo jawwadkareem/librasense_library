@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--BOOTSTRAP CSS-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!--CODE CSS-->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/mobile-responsive (426px).css">
+  <link rel="stylesheet" href="css/mobile_responsive (576px).css">
+  <link rel="stylesheet" href="css/small_devices_horizontal_phones (768px).css">
+  <link rel="stylesheet" href="css/tablet_responsive (992px).css">
+  <link rel="stylesheet" href="css/laptop_responsive (1200px).css">
+  <title>Document</title>
+
+  <!--GOOGLE FONTS-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Charm&display=swap" rel="stylesheet">
+
+  <!-- error code -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    function submitForm(){
+      
+      var email = document.getElementsByTagName('input')[0];
+      var password = document.getElementsByTagName('input')[1];
+      // var error = document.getElementsById('error-msg');
+  
+      var req = new XMLHttpRequest();
+      req.open("POST","/login");
+      req.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+      req.send("email="+email.value+"&password="+password.value)
+
+      req.onreadystatechange= function(){
+        if(req.readyState==4 && req.status==200){
+          if(req.responseText=='error'){
+            alert('error')
+          }
+          else if(req.responseText=='success'){
+            window.location.href = '/user'
+          }
+        }
+      }
+
+
+      return false;
+    }
+
+    // $(document).ready(function() {
+    //   $('form').submit(function(event) {
+    //     event.preventDefault();
+    //     const formData = $(this).serialize();
+    //     $.ajax({
+    //       type: 'POST',
+    //       url: '/login',
+    //       data: formData,
+    //       success: function(response) {
+    //         if (response === 'success') {
+    //           window.location.href = '/user.html'; // Redirect to user page
+    //         }
+    //          else {
+    //           $('#error-msg').text('Invalid email or password'); // Update error message
+    //         }
+    //       },
+    //       error: function() {
+    //         $('#error-msg').text('Error occurred'); // Update error message
+    //       }
+    //     });
+    //   });
+    // });
+  </script>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <section class="navbar-hero-container">
+    <nav class="navbar navbar-expand-lg navbar-light"
+      style="background-color: #F1F6F9; box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;">
+      <div class="container-fluid">
+        <div class="navbar-left_content-container">
+          <img id="navbar-logo-image" src="images/navbar-logo.png" alt="haha">
+          <h4 id="navbar-logo-name">Readers<span style="color: #9BA4B5;">Den.</span></h4>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse navbar-elements-container" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" id="navbar-elements-css" aria-current="page"
+                href="#welcome_screen-hero-container">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="navbar-elements-css" href="#all_cards-hero-container">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="navbar-elements-css" href="#about_us-hero-container">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="navbar-elements-css" href="#review_card-hero-container">Reviews</a>
+            </li>
+            <button type="button" id="navbar-contact_us-btn"
+              onclick="document.getElementById('contact_us-hero-container').scrollIntoView();"><span>Contact Us</span>
+              <img id="navbar_contact_us-icon" src="images/navbar-contact_us-icon.png" alt="lolopolo">
+            </button>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </section>
+
+  <!-- WELCOME SCREEN -->
+  <section id="welcome_screen-hero-container">
+    <div class="container-fluid welcome_screen_elements_container">
+      <div class="container">
+        <div class="row">
+          <div class="welcome_screen-left-content-container col-lg-6 col-md-7 col-sm-8 col-12">
+            <div class="text-content-container">
+              <h1 id="main-heading-text">Welcome To ReadersDen.</h1>
+              <h3 id="main-heading-sub_text">Taking your Learning Experiences to the next level...</h3>
+            </div>
+            <div class="button-container" style="margin-top: 50px;">
+              <button type="button" class="btn-lg welcome_screen-btn-css" data-bs-toggle="modal"
+                data-bs-target="#UserLoginModal">
+                <span style="letter-spacing: 1px;">Login Now</span></button>
+              <button type="button" class="btn-lg welcome_screen-btn-css" id="signup_btn" data-bs-toggle="modal"
+                data-bs-target="#SignupModal">
+                Signup Now</button>
+            </div>
+          </div>
+          <div class="welcome_screen-right-content-container col-lg-6 col-md-5 col-sm-4 col-12">
+            <div class="image-slideshow">
+              <div class="image fade">
+                <img id="slideshow_images" src="images/physics ka 14.jpg" alt="nhi hai">
+                <div class="slideshow_text-container">
+                  <h3 id="slideshow_text-content" style="font-size: 1.1rem;">
+                    "The only thing that you absolutely have to know, is the location of the library."</h3>
+                  <h3 id="slideshow_text-content">Albert Einstein (1879-1955. Theoretical physicist)</h3>
+                </div>
+              </div>
+              <div class="image fade">
+                <img id="slideshow_images" src="images/sakht launda.jpg" alt="nhi hai">
+                <div class="slideshow_text-container">
+                  <h3 id="slideshow_text-content" style="font-size: 1.1rem;">
+                    “I have always imagined that Paradise will be a kind of library.”</h3>
+                  <h3 id="slideshow_text-content">Jorge Luis Borges (1899-1986. Argentine writer)</h3>
+                </div>
+              </div>
+              <div class="image fade">
+                <img id="slideshow_images" src="images/phadda karane wali aunty.jpg" alt="nhi hai">
+                <div class="slideshow_text-container">
+                  <h3 id="slideshow_text-content" style="font-size: 1.1rem;">"When in doubt go to the library."</h3>
+                  <h3 id="slideshow_text-content">J.K. Rowling (1965. British novelist, screenwriter, and producer)</h3>
+                </div>
+              </div>
+              <div class="image fade">
+                <img id="slideshow_images" src="images/rich guy.jpg" alt="nhi hai">
+                <div class="slideshow_text-container">
+                  <h3 id="slideshow_text-content" style="font-size: 1.1rem;">
+                    Whatever the cost of our libraries, the price is cheap compared to that of an ignorant nation.</h3>
+                  <h3 id="slideshow_text-content">Walter Cronkite (1916-2009. American broadcast journalist)</h3>
+                </div>
+              </div>
+              <div class="image fade">
+                <img id="slideshow_images" src="images/ufff .jpg" alt="nhi hai" style="filter: grayscale();">
+                <div class="slideshow_text-container" style="background-color: rgba(0, 0, 0, 0.7);">
+                  <h3 id="slideshow_text-content" style="font-size: 1.1rem;">
+                    “Sometimes people and books are beautiful not in looks... Just in what they hold.”</h3>
+                  <h3 id="slideshow_text-content">Dasha Taran (1999. Russian Author and Influencer)</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  </section>
+
+  <!--USER LOGIN MODAL-->
+  <div class="modal" id="UserLoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 30px;">
+        <div class="modal-header"
+          style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;">
+          <h1 class="modal-title" id="ModalTitle" style="margin-left: 85px;">USER LOGIN PORTAL</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="modal_form-content-container">
+            <form onsubmit="return submitForm()">
+              <div class="modal-input-group">
+                <ion-icon id="icon" name="mail-outline"></ion-icon>
+                <input id="email" name="email" class="modal-input-field" type="email" placeholder="Email Address"
+                  required>
+              </div>
+              <div class="modal-input-group">
+                <ion-icon id="icon" name="lock-open-outline"></ion-icon>
+                <input id="password" name="password" class="modal-input-field" type="password" placeholder="Password"
+                  required>
+              </div>
+              <div id="error-msg" class="error"></div>
+              <button id="login-signup_btn">Login</button>
+              <div class="sign-up_sign-in_container">
+                <div style="display: flex; justify-content: center; padding:20px 5px 5px;">
+                  <h6 style="margin-right: 5px;">Don't Have an Account?
+                    <a data-bs-target="#SignupModal" data-bs-toggle="modal" data-bs-dismiss="modal"
+                      id="signup-signin-switch_a">Sign Up</a>
+                  </h6>
+                </div>
+              </div>
+              <div class="login_modal-other-option-container"
+                style="margin-top: 30px; margin-bottom: 10px; text-align: center;">
+                <div style="display: flex; justify-content: center;">
+                  <hr width="100px">
+                  <h6 style="padding:5px 10px;">Or Login As</h6>
+                  <hr width="100px">
+                </div>
+                <div class="admin_user-switch-btn-option-container">
+                  <button id="admin_switch-btn" class="admin-user_btn-css" data-bs-target="#AdminLoginModal"
+                    data-bs-toggle="modal" data-bs-dismiss="modal">
+                    <ion-icon name="person-outline" id="user_admin-icon"></ion-icon>Login As Admin</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--ADMIN LOGIN MODAL-->
+  <div class="modal" id="AdminLoginModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 30px;">
+        <div class="modal-header"
+          style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;">
+          <h1 class="modal-title" id="ModalTitle" style="margin-left: 80px;">ADMIN LOGIN PORTAL</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="modal_form-content-container">
+            <form action="/alogin" method="post">
+              <div class="modal-input-group">
+                <ion-icon id="icon" name="mail-outline"></ion-icon>
+                <input id="username" name="email" class="modal-input-field" type="email" placeholder="Email Address"
+                  required>
+              </div>
+              <div class="modal-input-group">
+                <ion-icon id="icon" name="lock-open-outline"></ion-icon>
+                <input id="password" name="password" class="modal-input-field" type="password" placeholder="Password"
+                  required>
+              </div>
+              <button id="login-signup_btn">Login</button>
+              <div class="login_modal-other-option-container"
+                style="margin-top: 30px; margin-bottom: 10px; text-align: center;">
+                <div style="display: flex; justify-content: center;">
+                  <hr width="100px">
+                  <h6 style="padding:5px 10px;">Or Login As</h6>
+                  <hr width="100px">
+                </div>
+                <div class="admin_user-switch-btn-option-container">
+                  <button id="user_switch-btn" class="admin-user_btn-css" data-bs-target="#UserLoginModal"
+                    data-bs-toggle="modal" data-bs-dismiss="modal">
+                    <ion-icon name="people-outline" id="user_admin-icon"></ion-icon>Login As User</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!--SIGN UP MODAL-->
+  <div class="modal" id="SignupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 30px;">
+        <div class="modal-header"
+          style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;">
+          <h1 class="modal-title" id="ModalTitle" style="margin-left: 135px;">SIGNUP NOW</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="modal_form-content-container">
+
+            <form action="/signup" method="post">
+              <div class="modal-input-group">
+                <ion-icon id="icon" name="person-outline"></ion-icon>
+                <input id="username" name="name" class="modal-input-field" type="text" placeholder="Full Name" required>
+              </div>
+              <div class="modal-input-group">
+                <ion-icon id="icon" name="lock-open-outline"></ion-icon>
+                <input id="password" name="password" class="modal-input-field" type="password" placeholder="Password"
+                  required>
+              </div>
+              <div class="modal-input-group">
+                <ion-icon id="icon" name="mail-outline"></ion-icon>
+                <input id="email" name="email" class="modal-input-field" type="email" placeholder="Email Address"
+                  required>
+              </div>
+              <div class="modal-input-group">
+                <ion-icon id="icon" name="location-outline"></ion-icon>
+                <input id="address" name="address" class="modal-input-field" type="text"
+                  placeholder="Residential Address" required>
+              </div>
+              <div class="modal-input-group">
+                <ion-icon id="icon" name="call-outline"></ion-icon>
+                <input id="telephone" name="tel" class="modal-input-field" type="text" placeholder="Telephone No."
+                  required>
+              </div>
+              <div class="modal-input-group">
+                <ion-icon id="icon" style="font-size: 12px; margin-left: 10px;" name="add-circle-outline"></ion-icon>
+                <ion-icon id="icon" name="call-outline"></ion-icon>
+                <input id="telephone" name="rectel" class="modal-input-field" type="text"
+                  placeholder="Recovery Telephone No.">
+              </div>
+              <input type="checkbox" name="terms" style="margin-left: 75px;" required> I accept the Terms and
+              Conditions.
+              <button id="login-signup_btn">Sign Up</button>
+              <div class="sign-up_sign-in_container">
+                <div style="display: flex; justify-content: center; padding:0px 5px 10px 5px;">
+                  <h6 style="margin-right: 5px;">Already Have an Account?
+                    <a data-bs-target="#UserLoginModal" data-bs-toggle="modal" data-bs-dismiss="modal"
+                      id="signup-signin-switch_a">Log In</a>
+                  </h6>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--CARDS SECTION -->
+  <section id="all_cards-hero-container">
+    <div class="container-fluid cards-main-layout">
+      <div class="container card-container-css reveal">
+        <div class="category-header">
+          <h5 id="section-main-heading">SERVICES WE <span style="color: #9BA4B5;">PROVIDE</span></h5>
+          <hr
+            style="width: 100px; margin: auto; margin-top: 10px; border: 2px solid #13005A; border-radius: 30px; opacity: 1;">
+        </div>
+        <div class="row row-cards-container">
+          <!-- BOOKS CARD -->
+          <div class="card card-css col-lg-4 col-md-4 col-12">
+            <img src="Images/item_card_book.png" class="card-image-css" alt="...">
+            <div class="card-body" style="margin-top: 10px;">
+              <h5 class="card-title" style="text-align: center;">BOOKS</h5>
+              <a href="#dadsadsa" class="btn card-btn-css">Explore More</a>
+            </div>
+          </div>
+          <!-- E-BOOKS CARD -->
+          <div class="card card-css col-lg-4 col-md-4 col-12">
+            <img src="Images/item_card_ebook.png" class="card-image-css" alt="...">
+            <div class="card-body" style="margin-top: 10px;">
+              <h5 class="card-title" style="text-align: center;">E-BOOKS</h5>
+              <a href="#sadadasdas" class="btn card-btn-css">Explore More</a>
+            </div>
+          </div>
+          <!-- COURSES CARD -->
+          <div class="card card-css col-lg-4 col-md-4 col-12">
+            <img src="Images/item_card_course.png" class="card-image-css" alt="...">
+            <div class="card-body" style="margin-top: 10px;">
+              <h5 class="card-title" style="text-align: center;">COURSES</h5>
+              <a href="#ddjakdjsa" class="btn card-btn-css">Explore More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--ABOUT US SECTION-->
+  <section id="about_us-hero-container">
+    <div class="container-fluid about-us-main-layout">
+      <div class="container about-us-content-container reveal">
+        <div class="category-header" style="padding-top: 40px;">
+          <h5 id="section-main-heading">FIND OUT MORE <span style="color: #9BA4B5;">ABOUT US</span></h5>
+          <hr
+            style="width: 100px; margin: auto; margin-top: 10px; border: 2px solid #13005A; border-radius: 30px; opacity: 1;">
+        </div>
+        <div class="row about-us-master-row" style="margin-top: 30px;">
+          <div class="about-us-layout-left col-lg-6 col-sm-12">
+            <div class="about-us-text-content">
+              <h2 id="about-us-text-content-main-heading">WELCOME!</h2>
+              <p id="about-us-text-content-p">To our library management website, a haven for book enthusiasts and
+                lifelong learners. With our vast collection of books, educational courses, and seamless user experience,
+                we offer an immersive platform for knowledge exploration. Borrow books from our diverse catalog, ranging
+                from timeless classics to contemporary bestsellers, or choose to expand your personal library by
+                purchasing your favorite titles.</p>
+              <p id="about-us-text-content-p">Additionally, our educational courses cover a wide range of subjects,
+                allowing you to develop new skills, explore new interests, and deepen your understanding of various
+                disciplines. Our user-friendly interface ensures easy navigation, personalized recommendations, and
+                social features such as book clubs and discussion forums to foster community engagement.</p>
+              <p id="about-us-text-content-p">Join us in this transformative journey of reading, learning, and
+                connecting with fellow knowledge seekers. Embrace the joy of discovering new worlds, expanding your
+                horizons, and unlocking the doors to a lifetime of personal growth and enlightenment. Start your
+                exploration today and let the power of books and education inspire you.</p>
+            </div>
+          </div>
+          <div class="about-us-layout-right col-lg-6">
+            <img id="about_us-img" style="width: 400px; height: 450px; transform: scaleX(-1);"
+              src="Images/about-us-image.png" alt="...">
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <!--REVIEWS CARD SECTION-->
+  <section id="review_card-hero-container">
+    <div class="container-fluid reviews_main-layout">
+      <div class="container reviews-container-css reveal">
+        <div class="category-header" style="padding-top: 40px;">
+          <h5 id="section-main-heading">OUR PATRONS <span style="color: #9BA4B5;">REVIEWS</span></h5>
+          <hr
+            style="width: 100px; margin: auto; margin-top: 10px; border: 2px solid #13005A; border-radius: 30px; opacity: 1;">
+        </div>
+        <div class="row row-reviews-container">
+          <div class="card review_card-css col-lg-4 col-md-4">
+            <div class="card-body">
+              <h5 class="review_card-title">Light Yagami</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Japanese Anime Writer</h6>
+              <p class="review_card-text">Some quick example text to build on the card title and make up the bulk of the
+                card's content.</p>
+            </div>
+          </div>
+          <div class="card review_card-css col-lg-4 col-md-4">
+            <div class="card-body">
+              <h5 class="review_card-title">Robert Downey jr.</h5>
+              <h6 class="card-subtitle mb-2 text-muted">I Love You 3000</h6>
+              <p class="review_card-text">Some quick example text to build on the card title and make up the bulk of the
+                card's content.</p>
+            </div>
+          </div>
+          <div class="card review_card-css col-lg-4 col-md-4">
+            <div class="card-body">
+              <h5 class="review_card-title">Emma Watson</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Wingardium Leviosa</h6>
+              <p class="review_card-text">Some quick example text to build on the card title and make up the bulk of the
+                card's content.</p>
+            </div>
+          </div>
+          <div class="card review_card-css col-lg-4 col-md-4">
+            <div class="card-body">
+              <h5 class="review_card-title">Bhola Record</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Chal mera puttar chutti kar</h6>
+              <p class="review_card-text">Some quick example text to build on the card title and make up the bulk of the
+                card's content.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--CONTACT US SECTION-->
+  <section id="contact_us-hero-container">
+    <div class="container-fluid">
+      <div class="container contact_us-container-css reveal">
+        <div class="category-header" style="padding-top: 40px;">
+          <h5 id="section-main-heading">CONNECT WITH <span style="color: #9BA4B5;">US</span></h5>
+          <hr
+            style="width: 100px; margin: auto; margin-top: 10px; border: 2px solid #13005A; border-radius: 30px; opacity: 1;">
+        </div>
+        <div class="row contact_us-row-css">
+          <div class="contact_us-content-left col-lg-7">
+            <h3 id="contact_us_heading">Send Your Request</h3>
+            <form action="#" style="padding: 10px 50px;">
+              <div class="input-row">
+                <div class="input-group">
+                  <label>Name</label>
+                  <input id="contact_us-input-field" type="text" placeholder="Muhib Ullah">
+                </div>
+                <div class="input-group">
+                  <label>Email Address</label>
+                  <input id="contact_us-input-field" type="email" placeholder="muhib123@gmail.com">
+                </div>
+              </div>
+              <div class="input-row">
+                <div class="input-group">
+                  <label>Contact Number</label>
+                  <input id="contact_us-input-field" type="text" placeholder="0315-aage nhi bataonga">
+                </div>
+                <div class="input-group">
+                  <label>Subject</label>
+                  <input id="contact_us-input-field" type="text" placeholder="jisme GPA nhi ayegi">
+                </div>
+              </div>
+              <div class="contact_us-message-container">
+                <label>Message</label>
+                <textarea rows="3" placeholder="Your Message"></textarea>
+              </div>
+              <button type="submit" id="contact_us-submit_btn">SUBMIT</button>
+            </form>
+          </div>
+          <div class="contact_us-content-right col-lg-5" style="background-color: #212A3E">
+            <h1 id="contact_us-right-content-heading">LET'S CHAT!</h1>
+            <p id="contact_us-right-content-text">Wheather you have a question, want to learn more about our services or
+              simply want to connect</p>
+            <p id="contact_us-right-content-text">Feel free to send us a message in the contact form!</p>
+            <img id="contact_us-img" src="images/contact_us-image.png" alt="nhi hai">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer-hero-container" style="background-color: #212A3E;">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="row">
+          <div class="footer-main-heading_content">
+            <h3 id="footer_-heading">ReadersDen.</h3>
+            <p id="footer_text-content">ReadersDen. is a website created by the students of NED University to facilitate
+              people who have a keen interest in reading and learning new things. Our vision is to
+              make this website home for all the those who are willing to learn and read.
+            </p>
+          </div>
+          <div class="footer_connections">
+            <h3 id="footer_-heading" style="font-size: 1.2rem;">STAY CONNECTED!</h3>
+            <div class="footer-connection-links">
+              <a class="footer-social_icon" href="https://www.instagram.com/karimjawwad/?igshid=MzRlODBiNWFlZA%3D%3D"
+                target="_blank">
+                <ion-icon name="logo-instagram" size="large"></ion-icon>
+              </a>
+              <a class="footer-social_icon"
+                href="https://www.facebook.com/people/Muhib-Ullah/pfbid0Dg9TjbfuLLjG63RbAD7cB24Cx2Vcp222jpMR69LguhTSEaib784hqp71e3x1CTpxl/?mibextid=ZbWKwL"
+                target="_blank">
+                <ion-icon name="logo-facebook" size="large"></ion-icon>
+              </a>
+              <a class="footer-social_icon" href="#" target="_blank" style="margin-top: 14px;">
+                <ion-icon name="logo-discord" size="large"></ion-icon>
+              </a>
+            </div>
+          </div>
+          <div class="footer-copyright_content" style="text-align: center; margin-bottom: 10px;">
+            <h6 style="color: #F1F6F9; font-family: 'Montserrat', sans-serif;">Powered by BAD CGPA © 2023</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- <script src="js/error.js"></script> -->
+  <script src="js/effect.js"></script>
+  <script src="js/reveal_effect.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

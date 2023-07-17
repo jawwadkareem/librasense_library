@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner&display=swap');
+ 
+ * {
+    margin: 0;
+    padding: 0;  
+ }
+
+.header-main-container{
+    background-color: #f1f6f9;
+    text-align: center;
+    height: 150px;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+#header-main-heading{
+    margin-top: 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    color: #13005A;
+}
+
+.all_cards-row{
+    padding-top: 5%;
+    gap: 80px; 
+    display: flex; 
+    justify-content: center;
+}
+
+/*BOOK DISPLAY CARD*/
+.card {
+    width: 240px;
+    height: 334px;
+    transition: all 0.3s;
+    border-radius: 20px !important;
+    font-size: 30px;
+    font-weight: 900;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: #f1f6f9;
+    
+  }
+  
+.card:hover {
+    border-radius: 15px;
+    cursor: default;
+    transform: scale(1.1);
+    box-shadow: 0px 0px 10px 5px  rgba(99, 96, 96, 0.705);
+  }
+  
+.first-content {
+    height: 100%;
+    width: 100%;
+    transition: all 0.4s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    border-radius: 15px;
+}
+  
+.card:hover .first-content {
+    height: 0px;
+    opacity: 0;
+  }
+  
+.second-content {
+    background-color: #f1f6f9;
+    height: 0%;
+    width: 100%;
+    opacity: 0;
+    border-radius: 15px;
+    transition: all 0.4s;
+    font-size: 0px;
+    transform: rotate(90deg) scale(-1);
+  }
+  
+.card:hover .second-content {
+    opacity: 1;
+    height: 100%;
+    transform: rotate(0deg);
+  }
+
+.card_img{
+    border-radius: 20px;
+    width: 240px;
+    height: 334px;
+}
+
+/*BOOK CARD DETAILS*/
+#book_name{
+    font-family: 'Comfortaa', cursive;
+    font-weight: 900;
+    font-size: 1.3rem;
+}
+
+#book_author{
+    font-family: 'Comfortaa', cursive;
+    font-weight: 900;
+}
+
+.book_price-return_time{
+    font-family: 'Comfortaa', cursive;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+
+.book_price-return_time_answer{
+    color: #13005A;
+    font-family: 'Edu TAS Beginner', cursive;
+    font-weight: 900;
+    margin-left: 5px;
+}
+
+#return_view-pdf-button, #return_phyical_book-button{
+    font-family: 'Comfortaa', cursive;
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: bolder;
+    color: #13005A;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  #return_view-pdf-button:hover, #return_phyical_book-button:hover {
+    background-color: #13005A;
+    box-shadow: 0px 15px 20px rgba(17, 25, 77, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
+.animated-div {
+    opacity: 0;
+    animation-name: fade-in;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+  
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .animated-div:nth-child(1) {
+    animation-delay: 0s;
+  }
+  
+  .animated-div:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+  
+  .animated-div:nth-child(3) {
+    animation-delay: 0.5s;
+  }

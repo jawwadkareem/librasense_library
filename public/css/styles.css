@@ -1,0 +1,679 @@
+/*FONTS TO BE USED*/
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+/*REVEAL ANIMATON*/
+.reveal{
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition: all 2s ease;
+}
+
+.reveal.active{
+    transform: translateY(0px);
+    opacity: 1;
+}
+
+/*NAVBAR CSS*/
+.navbar-left_content-container{
+    display: flex; 
+    margin-left: 20px;
+}
+
+#navbar-logo-image{
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+}
+
+#navbar-logo-name{
+    margin-top: 5px;
+    margin-inline-start: 5px;
+    color: #13005A;
+}
+
+.navbar-elements-container{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 40px;
+}
+
+#navbar-elements-css{
+    position: relative;
+    color: #9BA4B5;
+    font-weight: 400;
+    margin-inline-end: 20px;
+}
+
+/* NAVBAR Hover Effect Bakchodi*/
+#navbar-elements-css:before,
+#navbar-elements-css:after{
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 0;
+    background-color: #13005A;
+    transition: 0.5s;
+}
+
+#navbar-elements-css:after{
+    left: 0;
+    bottom: 5px;
+}
+
+#navbar-elements-css:before{
+    right: 0;
+    top: 5px;
+}
+#navbar-elements-css:hover{
+    color: #13005A;
+}
+
+#navbar-elements-css:hover:after,
+#navbar-elements-css:hover:before{
+    width: 100%;    
+}
+
+#navbar-contact_us-btn{
+    height: 40px;
+    color:#F1F6F9;
+    background-color: #13005A;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 2px solid #9BA4B5;
+    border-radius: 10px;
+    opacity: 80%;
+    transition: 0.5s;
+}
+
+#navbar_contact_us-icon{
+    margin-top: -3px;
+    width: 25px;
+    height: 25px;
+}
+
+#navbar-contact_us-btn:hover{
+    opacity: 100%;
+}
+
+/*WELCOME SCREEN CSS*/
+.welcome_screen_elements_container{
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(181deg, rgb(2, 0, 97) 15%, rgb(27, 8, 172) 158.5%);
+}
+
+#main-heading-text{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.8rem;
+    color: #F1F6F9;
+    margin-top: 200px;
+}
+
+#main-heading-sub_text{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    margin-top: 20px;
+    color: #9BA4B5;
+}
+
+.welcome_screen-btn-css{
+    position: relative;
+    color: #F1F6F9;
+    background-color: #13005A;
+    border: none;
+    border: 2px solid #9BA4B5;
+    transition: ease-out 0.3s;
+    z-index: 1;
+}
+
+#signup_btn{
+    margin-left: 20px;
+}
+
+.welcome_screen-btn-css:hover{
+    border: 2px solid #ffffff;
+}
+
+.welcome_screen-btn-css:before{
+    transition: 0.5s all ease;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
+    opacity: 0;
+    content: "";
+    background-color: #9BA4B5;
+}
+
+.welcome_screen-btn-css:hover:before{
+    transition: 0.5s all ease;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    z-index: -1;
+}
+
+.welcome_screen-left-content-container{
+    animation: FadeIn 3s;
+}
+
+@keyframes FadeIn {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.welcome_screen-right-content-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 92.5vh;
+}
+
+.image-slideshow {
+    max-width: 100%;
+    position: relative;
+    margin: auto;
+    margin-right: 15px;
+}
+
+#slideshow_images {
+    box-shadow: rgba(255, 255, 255, 0.5) 0px 22px 70px 4px;
+    width: 420px;
+    height: 600px;
+    border-radius: 30px;
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: 3s;
+}
+
+@keyframes fade {
+  from {opacity: .5}
+  to {opacity: 1}
+}
+
+.slideshow_text-container{
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 420px;
+    height: 100px;
+    position: relative;
+    margin-right: 15px;
+    margin-top: -100px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+#slideshow_text-content{
+    color: #F1F6F9;
+    text-align: center;
+    font-family: 'Charm', cursive;
+    font-size: 1rem;
+    padding: 10px 20px 0px 20px;
+}
+
+/*LOGIN SIGNUP MODALS*/
+
+#ModalTitle{
+    display: block;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 2rem;
+    color: #212A3E;
+}
+
+.modal-input-group{
+    position: relative;
+}
+
+.modal-input-field{
+    border: 1px solid #9BA4B5;
+    border-radius:8px;
+    padding: 10px 45px;
+    width: 320px;
+    display: block;
+    margin: 15px auto;
+    outline: none;
+}
+
+#icon{
+    position: absolute;
+    left: 82px;
+    top: 11px;
+    font-size: 22px;
+}
+
+#login-signup_btn{
+    display: block;
+    margin: 40px auto 10px;
+    padding: 10px 70px 10px 70px;
+    border-radius: 30px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    color: #F1F6F9;
+    background-color: #13005A;
+    transition: 0.2s ease-in-out;
+}
+
+#login-signup_btn:hover{
+    color: #13005A;
+    background-color: #F1F6F9;
+}
+
+#signup-signin-switch_a{
+    text-decoration: none;
+    cursor: pointer;
+    color: #090580;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 800;
+}
+
+
+.admin_user-switch-btn-container{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.admin-user_btn-css{
+    font-family: 'Quicksand', sans-serif;
+    color: #ffffff;
+    margin-bottom: 15px;
+    padding: 8px 30px;
+    border: none;
+    border-radius: 10px;
+    width: 300px;
+}
+
+#admin_switch-btn{
+    background-color: #090580;
+    transition: 0.3s ease-in-out;
+}
+
+#admin_switch-btn:hover{
+    background-color: #11009E;
+}
+
+#user_switch-btn{
+    background-color: #090580;
+    transition: 0.3s ease-in-out;
+}
+
+#user_switch-btn:hover{
+    background-color: #11009E;
+}
+
+#user_admin-icon{
+    position: absolute;
+    margin-left: 170px;
+    font-size: 22px;
+}
+
+/*CARDS LAYOUT*/
+.cards-main-layout{
+    display: flex;
+    height: 100%;
+    background-color: #F1F6F9
+}
+
+.card-container-css {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.row-cards-container{
+    margin-top: 30px; 
+    margin-bottom: 30px;
+    gap: 60px; 
+    justify-content: center;
+}
+
+#section-main-heading{
+    color: #13005A;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 1000;
+    font-size: 2.5rem;
+}
+
+.card-css {
+    position: relative;
+    top: 0;
+    width: 20rem;
+    align-items: center;
+    border-radius: 30px;
+    background-color: #F1F6F9;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    height: 320px;
+    transition: 0.3s all ease-in-out;
+}
+
+.card-css:hover{
+    top: -15px;
+    background-color: #13005A;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.card-css:hover .card-image-css{
+    filter: invert();
+}
+
+.card-css:hover .card-title{
+    color: #f1f6f9;
+}
+
+.card-css:hover .card-btn-css{
+    color: white;
+    border: 3px solid white;
+    box-shadow: inset 0 0 0 0 white;
+}
+
+.card-css:hover .card-btn-css:hover{
+    box-shadow: inset 0 -100px 0 0 white;
+    color: #13005A;
+}
+
+.card-image-css {
+    width: 50%;
+    margin-top: 30px;
+    filter: invert(5%) sepia(89%) saturate(5545%) hue-rotate(242deg) brightness(97%) contrast(114%);
+}
+  
+.card-title {
+    font-family: 'Montserrat', sans-serif;
+    color: #212A3E;
+    font-size: 1.7rem;
+    font-weight: 700;
+}
+
+.card-btn-css {
+    margin-top: 10px;
+    padding: 12px 0px 12px 0x;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: #13005A;
+    background: transparent;
+    border: 3px solid #13005A;
+    transition: ease-out 0.5s;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 0 #13005A;
+}
+  
+.card-btn-css:hover {
+    color: white;
+    box-shadow: inset 0 -100px 0 0 #13005A;
+}
+
+.animated-div {
+    opacity: 0;
+    animation-name: SwipeUp;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+
+@keyframes SwipeUp {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+  
+.animated-div:nth-child(1) {
+    animation-delay: 0s;
+}
+  
+.animated-div:nth-child(2) {
+    animation-delay: 0.5s;
+}
+  
+.animated-div:nth-child(3) {
+    animation-delay: 1s;
+}
+
+/*ABOUT US SECTION*/
+.about-us-main-layout{
+    padding-bottom: 100px;
+    height: 100%;
+}
+
+#about-us-text-content-main-heading{
+    margin-top: 20px;
+    margin-left: 10px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #13005A;
+    font-weight: 1000;
+}
+
+#about-us-text-content-p{
+    text-align: left;
+    font-family: 'Quicksand', sans-serif;
+    color: #9BA4B5;
+    margin-left: 10px;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+#about_us-img{
+    width: 400px; 
+    height: 450px; 
+    transform: scaleX(-1);
+    margin-left: 12rem;
+    margin-bottom: 100px;
+}
+
+/* REVIEWS LAYOUT*/
+.reviews_main-layout{
+    background-color: #F1F6F9;
+    height: 100%;
+    padding-bottom: 100px;
+}
+
+.row-reviews-container{
+    justify-content: center;
+    gap: 40px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.review_card-css{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+.review_card-title{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    color: #13005A;
+}
+.review_card-text{
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+}
+
+.review_card-css:hover{
+    color: white;
+    background-color: #212A3E;
+}
+
+
+.review_card-css:hover h5{
+    color: #F1F6F9; 
+}
+
+/*CONTACT US*/
+.contact_us-row-css{
+    margin-top: 60px;
+    margin-bottom: 80px;
+}
+
+.contact_us-content-left{
+    background-color: #F1F6F9;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border: 1px solid #9BA4B5;
+}
+
+.contact_us-content-right{
+    background-color: #212A3E;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border: 1px solid #9BA4B5;
+}
+
+#contact_us-right-content-heading{
+    font-family: 'Montserrat', sans-serif;
+    color: #F1F6F9;
+    text-align: center;
+    padding-top: 30px;
+}
+
+#contact_us-right-content-text{
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    padding: 10px 20px;
+    text-align: center;
+    color: #F1F6F9;
+}
+
+#contact_us-img{
+    width: 300px;
+    margin-left: 120px 
+}
+
+#contact_us_heading{
+    font-family: 'Montserrat', sans-serif;
+    color: #13005A;
+    padding: 30px 30px;
+}
+
+.input-row{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.input-group{
+    flex-basis: 45%;
+}
+
+label{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #212A3E;
+    margin-bottom: 10px;
+}
+
+#contact_us-input-field{
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #9BA4B5;
+    outline: none;
+    padding-bottom: 5px;
+    background-color: transparent;
+}
+
+textarea{
+    width: 100%;
+    border: 2px solid #9BA4B5;
+    outline: none;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#contact_us-submit_btn{
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 10px;
+    color: #F1F6F9;
+    border: 2px solid #9BA4B5;
+    background-color: #13005A;
+    transition: 0.2s ease-in;
+}
+
+#contact_us-submit_btn:hover{
+    color: #13005A;
+    border: 2px solid #13005A;
+    background-color: #F1F6F9;
+}
+
+/*FOOTER LAYOUT*/
+.footer-main-heading_content{
+    background-color: #212A3E;
+    margin-top: 20px;
+}
+
+#footer_-heading{
+    font-family: 'Montserrat', sans-serif;
+    color: #F1F6F9;
+    text-align: center;
+}
+
+#footer_text-content{
+    padding: 5px 50px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    color: #9BA4B5;
+    text-align: center;
+}
+
+.footer-connection-links{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-social_icon{
+    margin: 10px 10px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    color: #9BA4B5;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+.footer-social_icon:hover{
+    color: #F1F6F9;
+}
+/* .error span{
+    color: red;
+    margin: 90px} */
+.error {
+        color: red;
+        margin: 0px 70px;
+      }
+
+
+
+
+
+      
+

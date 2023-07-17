@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BOOKS</title>
+  <!--CSS LINKS-->
+  <link rel="stylesheet" href="/css/books_tab-css.css" />
+
+  <!--BOOTSTRAP CSS-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+
+<body>
+  <header>
+    <div class="container-fluid books_header-hero-container">
+      <div class="row">
+        <div class="header-content-container col-lg-12">
+          <div class="header_text-container">
+            <h2 id="header_main-heading">
+              WELCOME TO <span style="color: #9ba4b5">BOOKS SECTION</span>
+            </h2>
+            <hr style="
+                  width: 100px;
+                  margin: auto;
+                  margin-top: 10px;
+                  border: 2px solid #13005a;
+                  border-radius: 30px;
+                  opacity: 1;
+                " />
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!--POPULAR BOOKS DISPLAY SECTION-->
+  <% if (books.length>= 5 ) { %>
+    <section class="top_sellers-books-hero-container" style="padding: 3% 0 20px 0;">
+      <div class="most_popular_book_heading-container"
+        style="display: flex; justify-content: center; margin-bottom: 30px;">
+        <h2 id="popular_section-heading">Our New Additions</h2>
+      </div>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="books_main_container">
+            <ul class="list-inline">
+              <% for (let i=0 ; i < 5 ;i++) { %>
+                <li class="book">
+                  <img src="images/books/<%= books[books.length-i-1].isbn %>.jpg" />
+                </li>
+                <% } %>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+    <% } %>
+
+      <!--ALL BOOKS DISPLAY SECTION-->
+      <section class="all-books-display-hero-container" style="margin-top: 2%;">
+        <div class="container-fluid">
+          <form onsubmit="return searching()">
+            <div class="seach_field-main-container">
+              <div class="each_search_field-container">
+                <ion-icon name="search-outline" class="search-icon"></ion-icon>
+                <input type="search" name="genre" id='genre' class="search_form-input-field"
+                  placeholder="Search by Genres" autocomplete="off">
+              </div>
+              <div class="each_search_field-container">
+                <ion-icon name="search-outline" class="search-icon"></ion-icon>
+                <input type="search" name="author" id='author' class="search_form-input-field"
+                  placeholder="Search by Author" autocomplete="off">
+              </div>
+              <div class="each_search_field-container">
+                <ion-icon name="search-outline" class="search-icon"></ion-icon>
+                <input type="search" name="name" id='name' class="search_form-input-field" placeholder="Search by Name"
+                  autocomplete="off">
+              </div>
+            </div>
+            <div class="search_btn-container">
+              <button id="borrow_now-btn" class="search_btn" onclick="searching()">Search</button>
+            </div>
+
+          </form>
+          <div class="row">
+            <div class="books_display-container col-lg-12">
+              <table style="border-collapse: separate; border-spacing: 60px !important; border: none !important;">
+                <% if (books.length> 0) { %>
+                  <% for (var i=0; i < books.length; i++) { %>
+                    <% if (i % 2===0) { %>
+                      <tr class="book_container_row ;" id="records">
+                        <% } %>
+                          <td class="book_card_container">
+                            <div class="book_all-content-container">
+                              <div class="book_img-container" style="padding: 10px 0px 10px 10px">
+                                <img src="images/books/<%= books[i].isbn%>.jpg" alt=""
+                                  style="max-height: 180px; max-width: 200px;" />
+                              </div>
+                              <div class="book_details-container">
+                                <div class="book_name_publish_container">
+                                  <h3 class="book_title">
+                                    <%= books[i].title %>
+                                  </h3>
+                                </div>
+                                <div class="author_publish-year_container" style="width: 120%">
+                                  <h5 class="book_text-css">
+                                    <%= books[i].author %>
+                                  </h5>
+                                  <h5 class="book_text-css">Published On: <%= books[i].publication_year %>
+                                  </h5>
+                                </div>
+                                <hr style="width: 120%" />
+                                <div class="condition_availabity-container" style="width: 120%">
+                                  <h6 class="book_text-css">Condition: <span>
+                                      <%= books[i].book_Condition %>
+                                    </span></h6>
+                                  <h6 class="book_text-css">Category: <span>
+                                      <%= books[i].Category %>
+                                    </span></h6>
+                                </div>
+                                <div class="price_borrow_now_container" style="width: 120%">
+                                  <span class="price_tag">
+                                    <%= books[i].Price %>RS/Day
+                                  </span>
+                                  <div class="borrow_btn-container">
+                                    <button id="borrow_now-btn" data-toggle="modal" data-target="#exampleModal2"
+                                      onclick="borrowbook(this,  '<%= books[i].isbn %>')">Borrow Now</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <% if (i % 2 !==0 || i===books.length - 1) { %>
+                      </tr>
+                      <% } %>
+                        <% } %>
+                          <% } else { %>
+                            <tr>
+                              <td colspan="2" style="text-align: center;">
+                                <div class="more_books_to_come"
+                                  style="background-color: transparent; display: flex; justify-content: center; align-items: center;">
+                                  <div class="more_books-heading-container" style="width: 30%; margin-right: 18rem;">
+                                    <h1 id="more_books_heading">Books Not Available</h1>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <% } %>
+              </table>
+            </div>
+          </div>
+        </div>
+        <script>
+          document.getElementById("borrow_now-btn").addEventListener("click", function (event) {
+            event.preventDefault();
+          });
+        </script>
+
+
+        <!--Borrow Now Modal -->
+        <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content" id="BorrowModalHero"
+              style=" background-color: #e7ebf3; width: 500px; height: max-content; border: none; border-radius: 20px;">
+
+              <div class="modal_button_display-container" id="borrow_modal">
+                <div class="borrow_modal_text_container" style="display: flex; justify-content: center; margin: 25px;">
+                  <h5>Are you sure you want to borrow this book?</h5>
+                </div>
+                <div class="yes_no_button_container"
+                  style="display: flex; justify-content: space-evenly; margin-bottom: 20px;">
+                  <button type="button" class="button" id="borrow_yes_BTN" data-toggle="modal"
+                    data-target="#exampleModal2" data-dismiss="modal">
+                    <span class="button__text">YES</span>
+                    <span class="button_icon">&#x2713</span>
+                  </button>
+                  <button type="button" class="button" data-dismiss="modal" style="background-color: rgb(180, 0, 0);">
+                    <span class="button__text">NO</span>
+                    <span class="button_icon" style="background-color: rgb(121, 1, 1);">&#x2715</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content" id="BorrowModalHero"
+              style=" background-color: #e7ebf3; width: 500px; height: max-content; border: none; border-radius: 20px;">
+              <div id="borrow_complete_container">
+                <div class="wrapper" id="checking">
+                  <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                  </svg>
+                </div>
+                <div class="borrow_complete_header">
+                  <h3 id="success">Book Borrow Successful!</h3>
+                </div>
+                <div class="borrow_complete_body">
+                  <p id="msg">Thank You for borrowing this book from LibraSense. We hope that you have a nice reading
+                    experience!</p>
+                </div>
+                <hr width="60%" style="margin: auto; margin-top: -10px;">
+                <div class="borrow_complete_footer">
+                  <p>For any queries, Contact Us via the given links.</p>
+                  <div class="footer-connection-links">
+                    <a class="footer-social_icon"
+                      href="https://www.instagram.com/karimjawwad/?igshid=MzRlODBiNWFlZA%3D%3D" target="_blank">
+                      <ion-icon name="logo-instagram"></ion-icon>
+                    </a>
+                    <a class="footer-social_icon"
+                      href="https://www.facebook.com/people/Muhib-Ullah/pfbid0Dg9TjbfuLLjG63RbAD7cB24Cx2Vcp222jpMR69LguhTSEaib784hqp71e3x1CTpxl/?mibextid=ZbWKwL"
+                      target="_blank">
+                      <ion-icon name="logo-facebook"></ion-icon>
+                    </a>
+                    <a class="footer-social_icon" href="#" target="_blank" style="margin-top: 2px;">
+                      <ion-icon name="logo-discord"></ion-icon>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+      <script src="/js/books-modal-toggle.js"></script>
+      <!--ION ICONS SCRIPT-->
+      <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+      <script>
+        // model yes button function tosend data to backend
+        function borrowbook(obj, isbn) {
+          console.log(isbn)
+          console.log("adan is here")
+
+          // Date object
+          const date = new Date();
+          let currentDay = String(date.getDate()).padStart(2, '0');
+          let currentMonth = String(date.getMonth() + 1).padStart(2, "0");
+          let currentYear = date.getFullYear();
+          let returnmonth = String(Number(currentMonth) + 2).padStart(2, "0");
+          let nextdate = String(date.getDate() + 7).padStart(2, '0');
+          let nextmonth = String(date.getMonth() + 4).padStart(2, "0");
+
+
+          // we will display the date as DD-MM-YYYY 
+          // let current_Date = `${currentDay}-${currentMonth}-${currentYear}`;
+          // let return_date = `${currentDay}-${returnmonth}-${currentYear}`;
+          // let due_date = `${nextdate}-${nextmonth}-${currentYear}`;
+          let current_Date = `${currentYear}-${currentMonth}-${currentDay}`;
+          // let return_date = `${currentYear}-${returnmonth}-${currentDay}`;
+          let due_date = `${currentYear}-${nextmonth}-${nextdate}`;
+          // console.log(returnmonth,'   ',return_date,'  ',nextdate)
+
+
+          obj = {
+            isbn: isbn,
+            issue_date: current_Date,
+            due_date: due_date
+          }
+          var req = new XMLHttpRequest()
+          req.open('POST', '/borrowbooks');
+          req.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+          req.send("isbn=" + isbn + "&issue_date=" + current_Date + '&due_date=' + due_date)
+
+          req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200) {
+              if (req.responseText == 'success') {
+                setTimeout(function () {
+                  window.location.href = '/userbooksview'
+                }, 4000)
+              }
+
+            }
+            else if (req.responseText == 'error') {
+              document.getElementById('checking').innerHTML = `<svg class="cross__svg" id='checking' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+  				<circle class="cross__circle" cx="26" cy="26" r="25" fill="none"/>
+				  <path class="cross__path cross__path--right" fill="none" d="M16,16 l20,20" />
+  <path class="cross__path cross__path--right" fill="none" d="M16,36 l20,-20" />
+			</svg>`
+              document.getElementById('success').innerHTML = 'There is an error'
+              document.getElementById('msg').innerHTML = 'Book borrow failed'
+            }
+
+          }
+        }
+        //   fetch('/borrowbooks',{
+        //     method:'POST',
+        //     headers:{
+        //       "Content-type":"application/json"
+        //     },
+        //     body:JSON.stringify(obj)
+        //   })
+        // }
+
+        // searching books
+        function searching() {
+
+          console.log(document.getElementById('genre').value)
+          console.log("searching function working")
+
+          document.querySelectorAll("#records").forEach(function (xyz) {
+            xyz.remove();
+          });
+
+          const table = document.getElementsByTagName('table')[0];
+          const booksContainer = document.querySelector('.books_display-container');
+
+          const genre = document.getElementById('genre').value;
+          const author = document.getElementById('author').value;
+          const name = document.getElementById('name').value;
+
+          const req = new XMLHttpRequest();
+          req.open('get', `/searchingbooks?genre=${genre}&author=${author}&name=${name}`);
+          req.send();
+          console.log("after XMLHTTTP requst")
+          req.onreadystatechange = function () {
+            console.log("in onreade function")
+            if (req.readyState == 4 && req.status == 200) {
+              const obj = JSON.parse(req.responseText);
+              if (obj.length > 0) {
+                let html = '<table style="border-collapse: separate; border-spacing: 60px !important; border: none !important;">';
+
+                for (let i = 0; i < obj.length; i++) {
+                  if (i % 2 === 0) {
+                    html += '<tr class="book_container_row;" id="records">';
+                  }
+
+                  html += '<td class="book_card_container">';
+                  html += '<div class="book_all-content-container">';
+                  html += '<div class="book_img-container" style="padding: 10px 0px 10px 10px">';
+                  html += `<img src="images/books/${obj[i].isbn}.jpg" alt="" style="max-height: 180px; max-width:200px;" />`;
+                  html += '</div>';
+                  html += '<div class="book_details-container">';
+                  html += '<div class="book_name_publish_container">';
+                  html += '<h3 class="book_title">' + obj[i].title + '</h3>';
+                  html += '</div>';
+                  html += '<div class="author_publish-year_container" style="width: 120%">';
+                  html += '<h5 class="book_text-css">' + obj[i].author + '</h5>';
+                  html += '<h5 class="book_text-css">Published On: ' + obj[i].publication_year + '</h5>';
+                  html += '</div>';
+                  html += '<hr style="width: 120%"/>';
+                  html += '<div class="condition_availabity-container" style="width: 120%">';
+                  html += '<h6 class="book_text-css">Condition: <span>' + obj[i].book_Condition + '</span></h6>';
+                  html += '<h6 class="book_text-css">Category: <span>' + obj[i].Category + '</span></h6>';
+                  html += '</div>';
+                  html += '<div class="price_borrow_now_container" style="width: 120%">';
+                  html += '<span class="price_tag">' + obj[i].Price + 'RS/Day</span>';
+                  html += '<div class="borrow_btn-container">';
+                  html += '<button id="borrow_now-btn" data-toggle="modal" data-target="#exampleModal2" onclick="borrowbook(this, \'' + obj[i].isbn + '\')">Borrow Now</button>';
+                  html += '</div>';
+                  html += '</div>';
+                  html += '</div>';
+                  html += '</div>';
+                  html += '</td>';
+
+                  if (i % 2 !== 0 || i === obj.length - 1) {
+                    html += '</tr>';
+                  }
+                }
+
+                html += '</table>';
+                booksContainer.innerHTML = html;
+              } else {
+                table.innerHTML = "<tr id='records'><td colspan='5' style='text-align: center;'>Data not found</td></tr>";
+              }
+            }
+          }
+          return false;
+        }
+
+      </script>
+
+</body>
+
+</html>

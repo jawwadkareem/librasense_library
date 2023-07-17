@@ -1,0 +1,182 @@
+/*FONTS TO BE USED*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+.form--hidden{
+    display: none;
+}
+
+.login-page-left-content{
+    background-image: url("../images/Untitled.png");
+    background-color: #13005A;
+    background-size: cover;
+    height: 100vh;
+}
+
+.login-page-right-content{
+    background-color: #F1F6F9;
+    height: 100vh;
+}
+
+.main_heading-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 10rem;
+}
+
+#main_heading{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5rem;
+    text-align: center;
+    color: #F1F6F9;
+}
+
+.forms-main-container{
+    background-color: #fff;
+    border-radius: 20px;
+    margin: 50px 100px;
+    animation: fadeIn 2s;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+#form_heading{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    padding: 20px 0px;
+    text-align: center;
+}
+
+.form_content-container{
+    border-radius: 10px;
+    height: 70vh;
+}
+
+.form_input_field_container{
+    margin-bottom: 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.fa_credential{
+    position: absolute;
+    left: 10px;
+}
+
+.form-input-field{
+    width: 25vw;
+    padding: 10px 45px;
+    outline: none;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    border-image: linear-gradient(89.8deg, rgb(39, 115, 255) 4.3%, rgb(62, 211, 232) 101.4%);
+    border-image-slice: 1;   
+}
+
+.login_signup_btn_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.gradient-hover-effect {
+    width: 100%;
+    padding: 15px 0px;
+    background: linear-gradient(89.8deg, rgb(39, 115, 255), transparent) rgb(62, 211, 232) ;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    transition: 0.5s ease-in-out;
+    border: none;
+    border-radius: 10px;
+}
+
+.gradient-hover-effect:hover, .gradient-hover-effect:focus {
+    border: none;
+    outline: none;
+    background-color: #001892;
+    color: #fff;
+}
+
+.login-signup-switch-link{
+    color: rgb(56, 122, 244);
+    position: relative;
+    top: 0;
+    padding: 3px;
+    transition: 0.3s ease-in-out;
+}
+
+.login-signup-switch-link:hover{
+    text-decoration: none;
+    top: -10px;
+    color: rgb(62, 211, 232);
+}
+
+.admin-user-swtich-btn{
+    width: 60%;
+    padding: 12px 0px;
+    border: none;
+    color: #F1F6F9;
+    background: linear-gradient(89.8deg, rgb(62, 211, 232), transparent), rgb(39, 115, 255);
+    border-radius: 10px;
+    transition: 0.5s ease-in-out;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.admin-user-swtich-btn:hover, #login_user_admin-switch_btn:focus {
+    border: none;
+    outline: none;
+    background-color: rgb(14, 3, 132);
+    color: #fff;
+}
+
+/*SIGNUP FORM TWEAKS*/
+.signup_field{
+    margin-bottom: 25px;
+}
+
+.signup_btn_container{
+    margin-top: 0px;
+}
+
+/* ADMIN FORM TWEAKS*/
+.admin-form-container{
+    background-color: #2a334c;
+}
+
+.admin-form-heading{
+    padding: 30px 0px 20px 0px !important;
+    color: #dde2e5;
+}
+
+.admin-form-input-field{
+    background: transparent;   
+    color: #dde2e5;
+}
+
+.admin-form-input-field::placeholder{
+    color: #dde2e5;
+}
+

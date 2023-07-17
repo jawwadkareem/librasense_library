@@ -1,0 +1,82 @@
+/* X-small devices (portrait, phones less than 426px)*/
+@media screen and (min-width:320px) and (max-width:425.98px){
+    /*NAVBAR TWEAKS*/
+    .navbar-left_content-container{
+        margin-left: 10px;
+    }
+
+    #navbar-logo-name{
+        margin-top: 7px;
+    }
+
+    .navbar-elements-container{
+        display: flex;
+        justify-content: flex-start;
+        margin-left: 10px;
+    }
+
+    #navbar-elements-css:hover:after,
+    #navbar-elements-css:hover:before{
+    width: 0%;
+    }
+
+     /*WELCOME SCREEN TWEAKS*/
+     #main-heading-text{
+        margin-top: 150px;
+        font-size: 2.5rem;
+        text-align: center;
+    }
+
+    #main-heading-sub_text{
+        font-size: 1.3rem;
+        text-align: center;
+    }
+
+    .button-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .welcome_screen-btn-css{
+        font-size: 90%;
+    }
+
+    .welcome_screen-right-content-container{
+        display: none;
+    }
+
+    /*CARDS DISPLAY TWEAKS*/
+    .cards-main-layout{
+        height: 100%;
+    }
+
+    #section-main-heading{
+        font-size: 1.6rem;
+    }
+
+    .card-css{
+        width: 16rem;
+        height: 300px;
+    }
+
+    /*ABOUT US TWEAKS*/
+    #section-main-heading{
+        font-size: 1.4rem;
+    }
+    .about-us-layout-right{
+        display: none;
+    }
+
+    #about-us-text-content-main-heading{
+        margin-right: 20px;
+        text-align: center;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    #about-us-text-content-p{
+        margin-right: 20px;
+        font-size: 1rem;
+        text-align: center;
+    }
+}
+
