@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error: Access Denied</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(120deg, #2980b9, #8e44ad);
+    }
+
+    .container {
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      max-width: 400px;
+      animation: fadeIn 1s;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 36px;
+      margin-bottom: 10px;
+      animation: bounce 1s;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-20px);
+      }
+      60% {
+        transform: translateY(-10px);
+      }
+    }
+
+    p {
+      margin-top: 10px;
+      color: #333;
+      font-size: 18px;
+      animation: slideIn 1s;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 30px;
+      background-color: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 style="color: red;">Access Denied</h1>
+    <p>You must log in to access this page.</p>
+    <button id="loginButton">Log In</button>
+  </div>
+  <script>
+    document.getElementById("loginButton").addEventListener("click", function() {
+    
+      window.location.href = "/";
+    });
+  </script>
+</body>
+</html>

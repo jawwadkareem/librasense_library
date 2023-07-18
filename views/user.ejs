@@ -19,11 +19,6 @@
 
   <!--CODE CSS-->
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/mobile-responsive (426px).css">
-  <link rel="stylesheet" href="css/mobile_responsive (576px).css">
-  <link rel="stylesheet" href="css/small_devices_horizontal_phones (768px).css">
-  <link rel="stylesheet" href="css/tablet_responsive (992px).css">
-  <link rel="stylesheet" href="css/laptop_responsive (1200px).css">
   <title>Document</title>
 
   <!--GOOGLE FONTS-->
@@ -50,7 +45,7 @@
       <div class="container-fluid">
         <div class="navbar-left_content-container">
           <img id="navbar-logo-image" src="images/navbar-logo.png" alt="haha">
-          <h4 id="navbar-logo-name">Readers<span style="color: #9BA4B5;">Den.</span></h4>
+          <h4 id="navbar-logo-name">Libra<span style="color: #9BA4B5;">Sense.</span></h4>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,10 +66,9 @@
             <li class="nav-item">
               <a class="nav-link" id="navbar-elements-css" href="#review_card-hero-container">Reviews</a>
             </li>
-            <button type="button" id="navbar-contact_us-btn"
-              onclick="document.getElementById('contact_us-hero-container').scrollIntoView();"><span>Contact Us</span>
-              <img id="navbar_contact_us-icon" src="images/navbar-contact_us-icon.png" alt="lolopolo">
-            </button>
+           <a href="/logout" style="margin-top: 3px;"> <button type="button" id="navbar-logout-btn"><span>Logout</span>
+              <img src="/images/logout.png" alt="" id="nav-logout-icon">
+            </button></a>
           </ul>
         </div>
       </div>
@@ -88,27 +82,34 @@
         <div class="row">
           <div class="welcome_screen-left-content-container col-lg-6 col-md-7 col-sm-8 col-12">
             <div class="text-content-container">
-              <!-- <h1 id="main-heading-text">Welcome To ReadersDen.</h1> -->
-              <h1 id="main-heading-text">Welcome <%- user[0].name%></h1>
+              <h1 class="typing-demo" id="main-heading-text">Welcome <%- user[0].name%></h1>
               <h3 id="main-heading-sub_text">Taking your Learning Experiences to the next level...</h3>
             </div>
 
             <div class="button-container" style="margin-top: 50px;">
-              <button type="button" class="btn-lg welcome_screen-btn-css" data-bs-toggle="modal"
-                data-bs-target="#UserLoginModal">
-                <span style="letter-spacing: 1px;">Login Now</span></button>
-              <button type="button" class="btn-lg welcome_screen-btn-css" id="signup_btn" data-bs-toggle="modal"
-                data-bs-target="#SignupModal">
-                Signup Now</button>
-               
+              <button type="button" class="btn-lg welcome_screen-btn-css"
+                onclick="document.getElementById('contact_us-hero-container').scrollIntoView();"
+              >
+                <span style="letter-spacing: 1px;">Contact Us</span>
+                <img src="/images/contact_us-icon.png" alt=""
+                  style="width: 30px; height: 30px; margin-top: -5px;"
+                >
+              </button>
+              <button type="button" class="btn-lg welcome_screen-btn-css" id="terms_btn"
+              data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-left: 20px;">
+                <span style="letter-spacing: 1px;">Terms & Conditions</span>
+                <img src="/images/terms-and-conditions.png" alt=""
+                  style="width: 30px; height: 30px; margin-top: -5px; filter: invert();"
+                  >
+              </button>
             </div>
-
             <p style="color:white; margin-top: 150px;">For any query, contact <%- user[0].email%></p>
+
           </div>
           <div class="welcome_screen-right-content-container col-lg-6 col-md-5 col-sm-4 col-12">
             <div class="image-slideshow">
               <div class="image fade">
-                <img id="slideshow_images" src="images/physics ka 14.jpg" alt="nhi hai">
+                <img id="slideshow_images" src="/images/Albert Einstein.jpg" alt="nhi hai">
                 <div class="slideshow_text-container">
                   <h3 id="slideshow_text-content" style="font-size: 1.1rem;">
                     "The only thing that you absolutely have to know, is the location of the library."</h3>
@@ -116,22 +117,32 @@
                 </div>
               </div>
               <div class="image fade">
-                <img id="slideshow_images" src="images/sakht launda.jpg" alt="nhi hai">
+                <img id="slideshow_images" src="/images/Jorge Luis Borges.jpg" alt="nhi hai">
                 <div class="slideshow_text-container">
                   <h3 id="slideshow_text-content" style="font-size: 1.1rem;">
                     “I have always imagined that Paradise will be a kind of library.”</h3>
                   <h3 id="slideshow_text-content">Jorge Luis Borges (1899-1986. Argentine writer)</h3>
                 </div>
               </div>
+
               <div class="image fade">
-                <img id="slideshow_images" src="images/phadda karane wali aunty.jpg" alt="nhi hai">
+                <img id="slideshow_images" src="/images/Elina Karimova.jpg" alt="nhi hai" style="filter: grayscale();">
+                <div class="slideshow_text-container" style="background-color: rgba(0, 0, 0, 0.7);">
+                  <h3 id="slideshow_text-content" style="font-size: 1.1rem;">
+                    "The sole of a writer is engraved on the book they write, but the spirit of their words echoes through eternity."</h3>
+                  <h3 id="slideshow_text-content">Elina Karimova (1998. South Korean Author and Influencer)</h3>
+                </div>
+              </div>
+
+              <div class="image fade">
+                <img id="slideshow_images" src="images/JK Rowling.jpg" alt="nhi hai">
                 <div class="slideshow_text-container">
                   <h3 id="slideshow_text-content" style="font-size: 1.1rem;">"When in doubt go to the library."</h3>
                   <h3 id="slideshow_text-content">J.K. Rowling (1965. British novelist, screenwriter, and producer)</h3>
                 </div>
               </div>
               <div class="image fade">
-                <img id="slideshow_images" src="images/rich guy.jpg" alt="nhi hai">
+                <img id="slideshow_images" src="/images/Walter Cronkite.jpg" alt="nhi hai">
                 <div class="slideshow_text-container">
                   <h3 id="slideshow_text-content" style="font-size: 1.1rem;">
                     Whatever the cost of our libraries, the price is cheap compared to that of an ignorant nation.</h3>
@@ -139,12 +150,45 @@
                 </div>
               </div>
               <div class="image fade">
-                <img id="slideshow_images" src="images/ufff .jpg" alt="nhi hai" style="filter: grayscale();">
+                <img id="slideshow_images" src="images/Dasha Taran.jpg" alt="nhi hai" style="filter: grayscale();">
                 <div class="slideshow_text-container" style="background-color: rgba(0, 0, 0, 0.7);">
                   <h3 id="slideshow_text-content" style="font-size: 1.1rem;">
                     “Sometimes people and books are beautiful not in looks... Just in what they hold.”</h3>
                   <h3 id="slideshow_text-content">Dasha Taran (1999. Russian Author and Influencer)</h3>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terms and Conditions Modal -->
+        <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header" style="margin: auto;">
+                <h3 class="modal-title" id="exampleModalLabel">Terms & Conditions.</h3>
+              </div>
+              <div class="modal-body">
+                <div class="terms_text-container" style="margin: 0px 20px; text-align: justify;">
+                  <p>Please read these Terms and Conditions carefully before using the libraSense Library. 
+                    The Website is owned and operated by students of NED. By accessing or using the Website, you agree to be bound by these Terms. 
+                    If you do not agree with these Terms, please do not access or use our Website.</p>
+                  <p><h6>Acceptance of Terms </h6>
+                    1.1 By accessing or using the Website, you affirm that you are of legal age and have the legal capacity to enter into these Terms, or you have obtained the necessary consent from your legal guardian to do so. <br><br>
+                    1.2 These Terms constitute a binding agreement between you and libraSense. Your use of the Website is subject to these Terms, as may be amended or updated by us from time to time. It is your responsibility to review these Terms periodically for any changes. Your continued use of the Website after any modifications to these Terms signifies your acceptance of those changes.
+                    </p>
+                  <p><h6>User Accounts</h6>
+                    2.1 In order to access certain features of the Website, you may need to create a user account. When creating an account, you agree to provide accurate and up-to-date information. You are solely responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.<br><br>
+                    2.2 You agree to notify us immediately of any unauthorized use of your account or any other breach of security. We reserve the right to suspend or terminate your account at any time, for any reason, without liability to you or any third party.
+                  </p>
+                  <p><h6>Privacy</h6>
+                    3.1 We collect and use your personal information in accordance with our Privacy Policy, which is incorporated by reference into these Terms. By using the Website, you consent to the collection and use of your personal information as described in the Privacy Policy.</p>
+                  <p>By using the libraSense Library Management System Website, you acknowledge that you have read, understood, and agreed to these Terms and Conditions.</p>
+                </div>
+              </div>
+               
+              <div class="modal-footer" style="display: flex; justify-content: center; margin: 10px 0px;">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">I agree to the Terms & Conditions.</button>
               </div>
             </div>
           </div>
@@ -156,32 +200,32 @@
     <div class="container-fluid cards-main-layout">
       <div class="container card-container-css reveal">
         <div class="category-header">
-          <h5 id="section-main-heading">SERVICES WE <span style="color: #9BA4B5;">PROVIDE</span></h5>
+          <h5 id="section-main-heading">WHAT DO YOU WANT <span style="color: #9BA4B5;">TO DO?</span></h5>
           <hr
             style="width: 100px; margin: auto; margin-top: 10px; border: 2px solid #13005A; border-radius: 30px; opacity: 1;">
         </div>
         <div class="row row-cards-container">
           <!-- BOOKS CARD -->
           <div class="card card-css col-lg-4 col-md-4 col-12">
-            <img src="Images/item_card_book.png" class="card-image-css" alt="...">
-            <div class="card-body" style="margin-top: 10px;">
+            <img src="/images/User-Book-Card.png" class="card-image-css" alt="..." style="width: 70%;">
+            <div class="card-body" style="margin-top: -10px;">
               <h5 class="card-title" style="text-align: center;">BOOKS</h5>
               <a href="/userbooksview" class="btn card-btn-css">Explore More</a>
             </div>
           </div>
           <!-- E-BOOKS CARD -->
           <div class="card card-css col-lg-4 col-md-4 col-12">
-            <img src="Images/item_card_ebook.png" class="card-image-css" alt="...">
-            <div class="card-body" style="margin-top: 10px;">
+            <img src="/images/User-Ebook-Card.png" class="card-image-css" alt="..." style="margin-top: 15px;">
+            <div class="card-body" style="margin-top: 5px;">
               <h5 class="card-title" style="text-align: center;">E-BOOKS</h5>
               <a href="/userebookView" class="btn card-btn-css">Explore More</a>
             </div>
           </div>
           <!-- COURSES CARD -->
           <div class="card card-css col-lg-4 col-md-4 col-12">
-            <img src="Images/item_card_course.png" class="card-image-css" alt="...">
-            <div class="card-body" style="margin-top: 10px;">
-              <h5 class="card-title" style="text-align: center;">Records</h5>
+            <img src="/images/User-Book_Bank-Card.png" class="card-image-css" alt="..." style="width: 70%;"> 
+            <div class="card-body" style="margin-top: -10px;">
+              <h5 class="card-title" style="text-align: center;">RECORDS</h5>
               <a href="/userborrowrecords" class="btn card-btn-css">Explore More</a>
             </div>
           </div>
@@ -236,7 +280,7 @@
             style="width: 100px; margin: auto; margin-top: 10px; border: 2px solid #13005A; border-radius: 30px; opacity: 1;">
         </div>
         <div class="row row-reviews-container">
-          <div class="card review_card-css col-lg-4 col-md-4">
+          <div class="card review_card-css col-lg-6">
             <div class="card-body">
               <h5 class="review_card-title">Light Yagami</h5>
               <h6 class="card-subtitle mb-2 text-muted">Japanese Anime Writer</h6>
@@ -244,7 +288,7 @@
                 card's content.</p>
             </div>
           </div>
-          <div class="card review_card-css col-lg-4 col-md-4">
+          <div class="card review_card-css col-lg-6">
             <div class="card-body">
               <h5 class="review_card-title">Robert Downey jr.</h5>
               <h6 class="card-subtitle mb-2 text-muted">I Love You 3000</h6>
@@ -252,7 +296,10 @@
                 card's content.</p>
             </div>
           </div>
-          <div class="card review_card-css col-lg-4 col-md-4">
+        </div>
+
+        <div class="row row-reviews-container">
+          <div class="card review_card-css col-lg-6">
             <div class="card-body">
               <h5 class="review_card-title">Emma Watson</h5>
               <h6 class="card-subtitle mb-2 text-muted">Wingardium Leviosa</h6>
@@ -260,10 +307,28 @@
                 card's content.</p>
             </div>
           </div>
-          <div class="card review_card-css col-lg-4 col-md-4">
+          <div class="card review_card-css col-lg-6">
             <div class="card-body">
-              <h5 class="review_card-title">Bhola Record</h5>
-              <h6 class="card-subtitle mb-2 text-muted">Chal mera puttar chutti kar</h6>
+              <h5 class="review_card-title">Shawn Mendes</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Treat you better</h6>
+              <p class="review_card-text">Some quick example text to build on the card title and make up the bulk of the
+                card's content.</p>
+            </div>
+          </div>
+        </div>
+        <div class="row row-reviews-container">
+          <div class="card review_card-css col-lg-6">
+            <div class="card-body">
+              <h5 class="review_card-title">Justin Bieber</h5>
+              <h6 class="card-subtitle mb-2 text-muted">What do you mean</h6>
+              <p class="review_card-text">Some quick example text to build on the card title and make up the bulk of the
+                card's content.</p>
+            </div>
+          </div>
+          <div class="card review_card-css col-lg-6">
+            <div class="card-body">
+              <h5 class="review_card-title">Halsey</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Closer</h6>
               <p class="review_card-text">Some quick example text to build on the card title and make up the bulk of the
                 card's content.</p>
             </div>
@@ -330,8 +395,8 @@
       <div class="container">
         <div class="row">
           <div class="footer-main-heading_content">
-            <h3 id="footer_-heading">ReadersDen.</h3>
-            <p id="footer_text-content">ReadersDen. is a website created by the students of NED University to facilitate
+            <h3 id="footer_-heading">LibraSense.</h3>
+            <p id="footer_text-content">LibraSense. is a website created by the students of NED University to facilitate
               people who have a keen interest in reading and learning new things. Our vision is to
               make this website home for all the those who are willing to learn and read.
             </p>
@@ -348,7 +413,7 @@
                 target="_blank">
                 <ion-icon name="logo-facebook" size="large"></ion-icon>
               </a>
-              <a class="footer-social_icon" href="#" target="_blank" style="margin-top: 14px;">
+              <a class="footer-social_icon" href="https://discord.gg/azF8TJqs" target="_blank" style="margin-top: 14px;">
                 <ion-icon name="logo-discord" size="large"></ion-icon>
               </a>
             </div>
@@ -360,11 +425,20 @@
       </div>
     </div>
   </footer>
-  <!-- <script src="js/error.js"></script> -->
+
+  
   <script src="js/effect.js"></script>
   <script src="js/reveal_effect.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
+ 
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+  
 </body>
 
 </html>

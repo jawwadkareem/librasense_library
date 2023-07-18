@@ -15,13 +15,29 @@
 
 <body>
     <div class="header-hero-container">
-        <h5>Records Manager : <%- records[0].staff_name %> (<%- records[0].staff_id%>)</h5>
+
+        <div class="employee_name-container" style="display: flex; justify-content: flex-start;">
+            <h5 id="record_manager_heading"
+            style="color: white; margin-left: 20px; background-color: #f1f6f9; width: fit-content; padding: 15px 20px;
+            position: absolute; top: 40px; color: #13005a; font-weight: 900; 
+            font-family: 'Comfortaa', cursive; font-size: 1rem; border-radius: 30px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+            <%- data[0].name %> (<%- data[0].staff_id%>)</h5>
+        </div>
+
+        <a href="/logout"><button type="button" id="navbar-logout-btn"><span>Logout</span>
+            <img src="/images/logout.png" alt="" id="nav-logout-icon">
+        </button></a>
+
+
+
         <div class="admin_user-record-heading-container">
             <h1 id="admin_user-records-main-heading">USER RECORDS</h1>
         </div>
         <div style="display: flex; justify-content: center;">
             <hr style="width: 10%; margin: auto; margin-top: 10px; border: 2px solid #9BA4B5; border-radius: 30px; opacity: 1;">
         </div>
+        
         <form onsubmit="return searching()">
             <div class="search_field-main-container">        
                 <div class="each_search_field-container">
@@ -43,7 +59,7 @@
         </form>
     </div>
 
-    <div class="user_table-container" style="display: flex; justify-content: center; margin-top: 50px;">
+    <div class="user_table-container" style="display: flex; justify-content: center; margin-top: 30px;">
         <table width="95%" style="border-collapse: collapse;">
             <tr style="background: linear-gradient(89deg, rgb(27, 8, 237) 0.1%, rgb(15, 27, 123) 51.5%, rgb(47, 30, 238)100.2%); transition: none; 
             box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;">

@@ -19,8 +19,22 @@
 
 <body>
     <!--STAFF RECORD HEADER SECTION-->
+    
     <div class="header-hero-container">
-        <h5>Ebooks Manager : <%- book[0].staffname %> (<%- book[0].staffid%>)</h5>
+        <div class="employee_name-container" style="display: flex; justify-content: flex-start;">
+            <h5 id="record_manager_heading"
+            style="color: white; margin-left: 20px; background-color: #f1f6f9; width: fit-content; padding: 15px 20px;
+            position: absolute; top: 40px; color: #13005a; font-weight: 900; 
+            font-family: 'Comfortaa', cursive; font-size: 1rem; border-radius: 30px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+            <%- data[0].name %> (<%- data[0].staff_id%>)</h5>
+        </div>
+
+        <a href="/logout"><button type="button" id="navbar-logout-btn"><span>Logout</span>
+            <img src="/images/logout.png" alt="" id="nav-logout-icon">
+        </button></a>
+
+
         <div class="admin_book-record-heading-container">
             <h1 id="admin_book-records-main-heading">EBOOK RECORDS</h1>
         </div>
@@ -174,14 +188,19 @@
                                 </div>
                             </div>
 
-                            <div class="modal-input-group" style="margin-left: 20px;">
-                                <input type="file" id="imageInput" required style="font-family: 'Comfortaa', cursive;" >
-                        <button id="successimage" type="button" onclick="uploadImage()">Upload Image</button>
+                            <div class="all_btn-container" style="display: flex; justify-content: center;">
+                                <div class="modal-input-group" 
+                                style="margin-left: 20px;">
+                                    <input type="file" id="imageInput" required style="font-family: 'Comfortaa', cursive; display: block;" >
+                                    <button class="upload_btn" id="successimage" type="button" onclick="uploadImage()">Upload Image</button>
                                 </div>
-                            <div class="modal-input-group" style="margin-left: 20px;">
-                                <input type="file" id="pdfInput" required style="font-family: 'Comfortaa', cursive;" >
-                        <button id="successpdf" type="button" onclick="uploadFile()">Upload File</button>
+                                <div class="modal-input-group" style="margin-left: 20px;">
+                                    <div>
+                                        <input type="file" id="pdfInput" required style="font-family: 'Comfortaa', cursive; display: block;">
+                                        <button class="upload_btn" id="successpdf" type="button" onclick="uploadFile()" style="margin-left: 8px;">Upload File</button>
+                                    </div>
                                 </div>
+                            </div>
                             <div class="add_now_btn-container">
                                 <button id="add_now_btn">
                                     <span>Add Now</span>
@@ -299,28 +318,7 @@
         }
         return false;
     }
-    // function uploadImage() {
-    //     const isbn = document.getElementById('isbn').value;
-    //     const input = document.getElementById('imageInput');
-    //     const file = input.files[0];
-
-    //     const formData = new FormData();
-    //     formData.append('isbn', isbn);
-    //     formData.append('image', file);
-
-    //     const xhr = new XMLHttpRequest();
-    //     xhr.open('POST', '/upload?isbn=' + isbn + '&type=book');
-    //     xhr.send(formData);
-    //     xhr.onreadystatechange = function () {
-    //         if (xhr.readyState === XMLHttpRequest.DONE) {
-    //             if (xhr.status === 200) {
-    //                 console.log('Successful')
-    //             }
-
-    //         }
-    //     };
-        
-    // }
+   
     function uploadImage() {
         const isbn = document.getElementById('isbn').value;
         const input = document.getElementById('imageInput');

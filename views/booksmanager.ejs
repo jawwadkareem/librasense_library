@@ -22,7 +22,19 @@
 <body>
     <!--BOOK RECORD HEADER SECTION-->
     <div class="header-hero-container">
-        <h5>Books Manager : <%- book[0].staffname %> (<%- book[0].staffid%>)</h5>
+        <div class="employee_name-container" style="display: flex; justify-content: flex-start;">
+            <h5 id="record_manager_heading"
+            style="color: white; margin-left: 20px; background-color: #f1f6f9; width: fit-content; padding: 15px 20px;
+            position: absolute; top: 40px; color: #13005a; font-weight: 900; 
+            font-family: 'Comfortaa', cursive; font-size: 1rem; border-radius: 30px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+            <%- data[0].name %> (<%- data[0].staff_id%>)</h5>
+        </div>
+
+        <a href="/logout"><button type="button" id="navbar-logout-btn"><span>Logout</span>
+            <img src="/images/logout.png" alt="" id="nav-logout-icon">
+        </button></a>
+
         <div class="admin_book-record-heading-container">
             
             <h1 id="admin_book-records-main-heading">BOOK RECORDS</h1>
@@ -262,7 +274,7 @@
         req.send()
         req.onreadystatechange = function () {
             if (req.readyState == 4 && req.status == 200) {
-                 
+                  
                 if (req.responseText){
                     alert(req.responseText + 'is removed from the database')
                     obj.parentElement.parentElement.remove();}
@@ -284,9 +296,7 @@
                 const obj = JSON.parse(req.responseText);
                 document.getElementById('isbn_book').value = obj[0].isbn;
                 document.getElementById('priceupdate').value = obj[0].price;
-                // document.getElementById('updatecondition').value = obj[0].book_condition;
-                // document.getElementById('updateavailable').value = obj[0].availability;
-                
+              
 
                 condition = document.getElementById('updatecondition');
                 condition.innerHTML = ''
@@ -321,7 +331,7 @@
                 var defaultOption = document.createElement("option");
                 defaultOption.value = obj[0].availability;
                 defaultOption.textContent = 'Same as before';
-                // defaultOption.disabled = true;
+               
                 defaultOption.selected = true;
 
                 available.appendChild(defaultOption);
@@ -374,28 +384,7 @@
         }
         return false;
     }
-    // function uploadImage() {
-    //     const isbn = document.getElementById('isbn').value;
-    //     const input = document.getElementById('imageInput');
-    //     const file = input.files[0];
-
-    //     const formData = new FormData();
-    //     formData.append('isbn', isbn);
-    //     formData.append('image', file);
-
-    //     const xhr = new XMLHttpRequest();
-    //     xhr.open('POST', '/upload?isbn=' + isbn + '&type=book');
-    //     xhr.send(formData);
-    //     xhr.onreadystatechange = function () {
-    //         if (xhr.readyState === XMLHttpRequest.DONE) {
-    //             if (xhr.status === 200) {
-    //                 console.log('Successful')
-    //             }
-
-    //         }
-    //     };
-        
-    // }
+   
 
     function uploadImage() {
         const isbn = document.getElementById('isbn').value;

@@ -12,7 +12,7 @@
 
 
 .header-hero-container{
-    background: linear-gradient(89deg, rgb(27, 8, 237) 0.1%, rgb(15, 27, 123) 51.5%, rgb(47, 30, 238)100.2%);
+    background: linear-gradient(89deg, rgb(16, 88, 197) 0.1%, rgb(32, 56, 161) 51.5%, rgb(15, 11, 127)100.2%);
     padding: 30px 0px;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
@@ -132,5 +132,33 @@ table tr:hover{
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
 
+#navbar-logout-btn{
+    text-align: start;
+    width: 120px;
+    right: 10px;
+    position: absolute;
+    height: 40px;
+    color:#F1F6F9;
+    background-color: #00008B;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 2px solid #9BA4B5;
+    border-radius: 10px;
+    opacity: 80%;
+    transition: 0.5s;
+    margin-right: 20px;
+    font-size: 1rem;
+}
 
-/*ANIMATION EFFECTS*/
+#navbar-logout-btn:hover{
+    opacity: 1;
+}
+
+#nav-logout-icon{
+    position: absolute;
+    margin-top: -2px;
+    margin-left: 12px;
+    width: 20px;
+    height: 20px;
+    filter: invert();
+}

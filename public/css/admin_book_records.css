@@ -283,5 +283,49 @@ input[type=file]::file-selector-button:hover {
     background: linear-gradient(to right, rgb(2, 27, 121),rgb(5, 117, 230));
 }
 
+.upload_btn{
+    font-family: 'Comfortaa', cursive;
+    padding: 8px 10px;
+    border: none;
+    margin-top: 15px;
+    border-radius: 20px;
+    color: #f1f6f9;
+    background-color: rgb(14, 12, 119);
+    transition: 0.3s all ease-in-out;
+}
+
+.upload_btn:hover{
+    background-color: #7f858e;
+}
 
 
+#navbar-logout-btn{
+    text-align: start;
+    width: 120px;
+    right: 10px;
+    position: absolute;
+    height: 40px;
+    color:#F1F6F9;
+    background-color: #00008B;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 2px solid #9BA4B5;
+    border-radius: 10px;
+    opacity: 80%;
+    transition: 0.5s;
+    margin-right: 20px;
+    font-size: 1rem;
+}
+
+#navbar-logout-btn:hover{
+    opacity: 1;
+}
+
+#nav-logout-icon{
+    position: absolute;
+    margin-top: 3px;
+    margin-left: 12px;
+    width: 20px;
+    height: 20px;
+    filter: invert();
+}

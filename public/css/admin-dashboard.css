@@ -7,25 +7,30 @@
     padding: 0;
 }
 
-.logout_btn{
-    width: 120px;
-    font-family: 'Comfortaa', cursive;
-    font-weight: 700;
-    font-size: 14px;
-    text-align: center;
-    margin-right: 30px;
-    border-radius: 30px;
-    color: #00008B;
-    border: 3px solid #00008B;
-    transition: 0.2s ease-in;
-}
-
-.logout_btn:hover{
-    color: white;
+#navbar-logout-btn{
+    height: 40px;
+    color:#F1F6F9;
     background-color: #00008B;
-    border: 3px solid rgb(119, 120, 156);
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 2px solid #9BA4B5;
+    border-radius: 10px;
+    opacity: 80%;
+    transition: 0.5s;
+    margin-right: 20px;
 }
 
+#navbar-logout-btn:hover{
+    opacity: 1;
+}
+
+#nav-logout-icon{
+    margin-top: -3px;
+    margin-left: 5px;
+    width: 20px;
+    height: 20px;
+    filter: invert();
+}
 
 .admin-block-main-heading-container{
     display: flex; 
@@ -37,6 +42,7 @@
 
 #admin_block-main-heading{
     font-family: 'Montserrat', sans-serif;
+    color: #13005A;
     font-size: 2.5rem;
 }
 
@@ -94,7 +100,6 @@
     font-weight: 700;
     font-family: 'Comfortaa', cursive;
     margin-bottom: 20px;
-    
 }
 
 #explore-more-btn{
@@ -121,7 +126,7 @@
     width: 180px;
     margin: 20px;
     border-radius: 10px;
-    background-color: #467bff;
+    background-color: #f1f6f9;
     border: none;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     top: 0;
@@ -133,7 +138,7 @@
 }
 
 #book_switch_name{
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Comfortaa', cursive;
     background-color: #150f7e;
     padding: 10px 0px;
     margin-bottom: -10px;
@@ -144,7 +149,10 @@
 }
 
 #book-switch_img{
-    filter: invert();
     max-height: 80px;
     margin-top: 10px
 }
+
+
+
+

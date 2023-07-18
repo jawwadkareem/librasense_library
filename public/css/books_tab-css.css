@@ -9,6 +9,41 @@
   padding: 0;
 }
 
+/*ANIMATION KEYFRAMES*/
+
+@keyframes slideDownFade {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes FadeIn{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+@keyframes RevealFadeBottom{
+  0%{
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100%{
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+
 /* HEADER CSS*/
 .books_header-heading-container {
   width: 100%;
@@ -23,6 +58,8 @@
 }
 
 .header_text-container {
+  opacity: 0;
+  animation: slideDownFade 1s ease-in-out 0s forwards;
   margin-top: 40px;
   margin-bottom: 40px;
   text-align: center;
@@ -35,6 +72,24 @@
 }
 
 /*BOOK CARD CSS*/
+#all_books-heading{
+  font-family: "Montserrat", sans-serif;
+  font-size: 3rem;
+  color: #13005a;
+}
+
+.reveal{
+  position: relative;
+  transform: translateY(150px);
+  opacity: 0;
+  transition: all 2s ease;
+}
+
+.reveal.active{
+  transform: translateY(0px);
+  opacity: 1;
+}
+
 .books_display-container {
   display: flex;
   justify-content: center;
@@ -59,6 +114,7 @@
 .book_all-content-container {
   display: flex;
   background-color: #f1f6f9;
+  border-radius: 20px;
 }
 
 .book_details-container {
@@ -66,7 +122,7 @@
   width: 480px;
 }
 
-#book_title {
+.book_title {
   font-family: "Montserrat", sans-serif;
 }
 
@@ -137,75 +193,6 @@
 .borrow_modal_text_container h5 {
   font-family: "Comfortaa", cursive;
   font-weight: 700;
-}
-
-/*YES NO BUTTONS*/
-.button {
-  font-family: "Comfortaa", cursive;
-  position: relative;
-  width: 150px;
-  height: 40px;
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  background-color: #3aa856;
-  border: none;
-}
-
-.button__text {
-  margin-left: 20px;
-}
-
-.button,
-.button_icon,
-.button__text {
-  transition: all 0.3s;
-}
-
-.button .button__text {
-  transform: translateX(30px);
-  color: #fff;
-  font-weight: 600;
-}
-
-.button .button_icon {
-  font-size: 28px;
-  position: absolute;
-  transform: translateX(109px);
-  color: #f1f6f9;
-  height: 100%;
-  width: 43px;
-  background-color: #34974d;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-.button:hover {
-  background: #34974d;
-}
-
-.button:hover .button__text {
-  color: transparent;
-}
-
-.button:hover .button_icon {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  width: 150px;
-  transform: translateX(0);
-}
-
-.button:active .button__icon {
-  background-color: #2e8644;
-}
-
-/*HIDING SHOWING MODAL*/
-.form_hidden {
-  display: none;
 }
 
 /*BORROW COMPLETE MODAL CSS*/
@@ -324,19 +311,32 @@
 }
 
 /*POPULAR BOOKS CONTAINER*/
+.most_popular_book_heading-container{
+  padding: 0px 20px;
+  max-width: fit-content;
+  margin-top: 20px !important;
+  margin-bottom: 30px !important;
+  margin: auto;
+  border-radius: 30px;
+  opacity: 0;
+  animation: FadeIn 1s ease-in-out 1s forwards;
+}
+
 #popular_section-heading{
     font-family: "Montserrat", sans-serif;
     color: #13005a;
-    font-size: 2.6rem;
+    font-size: 3rem;
 }
 
 .books_main_container{
-    padding-top: 25px;
+    opacity: 0;
+    animation: FadeIn 1s ease-in-out 1s forwards;
+    padding: 25px 0px;
     background-color: #f1f6f9;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+
 }
 
 .book::after,
@@ -364,7 +364,10 @@ ul {
   margin-left: 0;
 }
 
+
 .book {
+  opacity: 0;
+  animation: RevealFadeBottom 0.5s ease-in-out 2s forwards;
   display: block;
   width: 220px;
   height: 300px;
@@ -375,6 +378,26 @@ ul {
   overflow: hidden;
   transition: 0.3s all ease-in-out;
   top: 0;
+}
+
+.book:nth-child(1){
+  animation-delay: 1s;
+}
+
+.book:nth-child(2){
+  animation-delay: 1.5s;
+}
+
+.book:nth-child(3){
+  animation-delay: 2s;
+}
+
+.book:nth-child(4){
+  animation-delay: 2.5s;
+}
+
+.book:nth-child(5){
+  animation-delay: 3s;
 }
 
 .book img {
@@ -397,11 +420,11 @@ ul {
 
 
 /*searching css  */
-.seach_field-main-container {
-  margin-top: 50px;
+.search_field-main-container {
+  margin-top: 30px;
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 30px;
 }
 
 .each_search_field-container {
@@ -412,45 +435,64 @@ ul {
 }
 
 .search_form-input-field {
-  width: 25vw;
+  width: 20vw;
   padding: 12px 50px;
   outline: none;
   font-size: 18px;
   border-radius: 30px;
-  color: #000000;
-  border: 2px solid #9BA4B5;
+  color: #ffffff;
+  border: 2px solid #f1f6f9;
   background: transparent;
+  transition: 0.3s all ease-in-out;
 }
 
-.search_form-input-field::placeholder {
-  color: #101010;
+.search_form-input-field:focus{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.search-icon {
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
+.search_icon{
+  width: 14%;
   position: absolute;
-  background-color: #9BA4B5;
-  color: rgb(6, 6, 6);
   padding: 10px;
   margin-left: 2px;
   left: 2px;
   font-size: 20px;
+  stroke-width: 20px;
+  filter: invert();
+}
+
+.search_form-input-field::placeholder {
+  color: #f1f6f9;
 }
 
 .search_btn-container {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
-  gap: 20px;
+  margin-top: 50px;
+
 }
 
-.search_btn {
-  width: 200px;
-  padding: 12px 0px;
-  background-color: #9BA4B5;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  color: #f1f6f9;
-}
+.search_btn  {
+  padding: 17px 30px;
+  border-radius: 50px;
+  border: 0;
+  font-family: "Comfortaa", cursive;
+  background-color: white;
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: all .5s ease;
+ }
+ 
+.search_btn:hover {
+  letter-spacing: 3px;
+  background-color: hsl(224, 78%, 54%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(224, 240, 255) 0px 7px 29px 0px;
+ }
+
+
+
+
+

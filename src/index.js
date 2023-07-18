@@ -22,15 +22,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(session({
-    secret: 'your-secret-key',
+    secret: 'librasense25313637',
     resave: true,
     saveUninitialized: true
 }));
 app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'))
-})
+
 app.post('/signup', (req, res) => {
     const { name, password, email, address, tel, rectel } = req.body;
 
@@ -107,7 +105,7 @@ app.post('/login', (req, res) => {
                                 if (err) throw err;
                                 else {    // Store the user's email in the session
                                     req.session.userid = results[0].user_id;
-                                    console.log(req.session.userid)
+                                  
                                     res.send('success');
                                 }
                             })
@@ -147,10 +145,18 @@ app.post('/alogin', (req, res) => {
                             con.query(staff_id_get, [email], (err, results) => {
                                 if (err) throw err;
                                 else {
-                                      // Store the user's email in the session
-                                    req.session.staffid = results[0].staff_id;
-                                    console.log(req.session.staffid)
-                                    res.send(job_staff);
+                                     if(job_staff == 'Admin'){
+                                    req.session.adminid = results[0].staff_id;
+                                    res.send(job_staff);}
+                                     else if(job_staff == 'Books Manager'){
+                                    req.session.book_mid = results[0].staff_id;
+                                    res.send(job_staff);}
+                                    else if(job_staff == 'Records Manager'){
+                                    req.session.record_mid = results[0].staff_id;
+                                    res.send(job_staff);}
+                                    else if(job_staff == 'Ebooks Manager'){
+                                    req.session.ebook_mid = results[0].staff_id;
+                                    res.send(job_staff);}
                                 }
                             })
                         }})
@@ -163,14 +169,36 @@ app.post('/alogin', (req, res) => {
         }
     });
 });
+
+app.get('/', (req, res) => {
+    
+    
+    res.sendFile(path.join(__dirname, '../index.html'))
+})
+
+app.get('/logout', (req, res) => {
+    
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Error destroying session:', err);
+      }
+      res.redirect('/');
+    });
+  });
+app.get('/error',function(req,res){
+    res.sendFile(path.join(__dirname, '../error.html'))
+})
 app.get('/admin_dashboard', function (req, res) {
+    if (req.session.adminid){    
     const sql = "SELECT(SELECT COUNT(*) FROM user) AS total_user,(SELECT COUNT(*) FROM book) AS total_book,(SELECT COUNT(*) FROM staff_info WHERE job <> 'Admin') AS total_staff;"
     con.query(sql,function (error, result) {
         if (error) throw error;
         console.log(result);
-        res.render(path.join(__dirname, '../views/admin-dashboard'), { count: result })
+        res.render(path.join(__dirname, '../views/admin_dashboard'), { count: result })
     })
-
+}else{
+    res.redirect('/error')
+}
 })
 // app.get('/user', (req, res) => {
 //     if(req.session.userid){
@@ -186,6 +214,9 @@ app.get('/user', (req, res) => {
             }
         })
 
+}
+else{
+    res.redirect('/error')
 }})
 // app.get('/admin', (req, res) => {
 //     res.sendFile(path.join(__dirname, '../public/admin-dashboard.html'))
@@ -201,31 +232,40 @@ app.get('/user_records', function (req, res) {
 
 })
 app.get('/book_records', function (req, res) {
+    if(req.session.adminid){
     const sql = "Select * from book_records_admin"
     con.query(sql, function (error, result) {
         if (error) throw error;
         console.log(result);
         res.render(path.join(__dirname, '../views/admin_book_records'), { book: result })
     })
-
+}else{
+    res.redirect('/error')
+}
 })
 app.get('/ebook_records', function (req, res) {
+    if(req.session.adminid){
     const sql = "Select * from ebook_records_admin"
     con.query(sql, function (error, result) {
         if (error) throw error;
         console.log(result);
         res.render(path.join(__dirname, '../views/admin_ebook_records'), { book: result })
     })
-
+}else{
+    res.redirect('/error')
+}
 })
 app.get('/staff_records', function (req, res) {
+ if(req.session.adminid){
     const sql = "Select * from staff_records"
     con.query(sql, function (error, result) {
         if (error) throw error;
         console.log(result);
         res.render(path.join(__dirname, '../views/admin_staff_records'), { staff: result })
     })
-
+}else{
+    res.redirect('/error')
+}
 })
 
 app.get('/searching', function (req, res) {
@@ -252,20 +292,35 @@ app.get('/searchingstaff', function (req, res) {
 })
 
 app.get('/ebooksmanager',function(req,res){
+    if(req.session.ebook_mid){
     const sql = "Select * from staff_maintains_ebooks where staffid = ?"
-    con.query(sql,[req.session.staffid] ,function (error, result) {
+    con.query(sql,[req.session.ebook_mid] ,function (error, result) {
         if (error) throw error;
         console.log(result);
-        res.render(path.join(__dirname, '../views/ebooksmanager'), { book: result })
+        staff_name = "SELECT s.staff_id, si.name FROM staff s JOIN staff_info si ON s.email = si.email WHERE s.staff_id = ?;"
+        con.query(staff_name, [req.session.ebook_mid], function (error, result1){
+           if (error) throw error;
+        res.render(path.join(__dirname, '../views/ebooksmanager'), { book: result, data:result1 })})
     })
+}
+else{
+    res.redirect('/error')
+}
 })
 app.get('/booksmanager',function(req,res){
+ if(req.session.book_mid){
     const sql = "Select * from staff_maintains_pbooks where staffid = ?"
-    con.query(sql,[req.session.staffid] ,function (error, result) {
+    con.query(sql,[req.session.book_mid] ,function (error, result) {
         if (error) throw error;
         console.log(result);
-        res.render(path.join(__dirname, '../views/booksmanager'), { book: result })
+        staff_name = "SELECT s.staff_id, si.name FROM staff s JOIN staff_info si ON s.email = si.email WHERE s.staff_id = ?;"
+        con.query(staff_name, [req.session.book_mid], function (error, result1){
+           if (error) throw error;
+        res.render(path.join(__dirname, '../views/booksmanager'), { book: result, data:result1 })})
     })
+}else{
+        res.redirect('/error')
+    }
 })
 app.get('/searchingbook', function (req, res) {
     const title = req.query.title;
@@ -295,7 +350,7 @@ app.get('/searchingebookmanager', function (req, res) {
     const category = req.query.category;
     
 
-    const sql = "SELECT * FROM staff_maintains_ebooks where title LIKE '%" + title + "%' AND author_name LIKE '%" + author + "%' AND category LIKE '%" + category + "%'And staffid='"+req.session.staffid+"'"
+    const sql = "SELECT * FROM staff_maintains_ebooks where title LIKE '%" + title + "%' AND author_name LIKE '%" + author + "%' AND category LIKE '%" + category + "%'And staffid='"+req.session.ebook_mid+"'"
     console.log(sql);
     con.query(sql, function (err, result) {
        
@@ -309,7 +364,7 @@ app.get('/searchingrecords', function (req, res) {
     const user_id = req.query.user_id;
     
 
-    const sql = "SELECT * FROM staff_user_records where name LIKE '%" + name + "%' AND user_id LIKE '%" + user_id + "%' AND isbn LIKE '%" + isbn + "%'And staff_id='"+req.session.staffid+"'"
+    const sql = "SELECT * FROM staff_user_records where name LIKE '%" + name + "%' AND user_id LIKE '%" + user_id + "%' AND isbn LIKE '%" + isbn + "%'And staff_id='"+req.session.record_mid+"'"
     console.log(sql);
     con.query(sql, function (err, result) {
        
@@ -323,7 +378,7 @@ app.get('/searchingbookmanager', function (req, res) {
     const category = req.query.category;
     
 
-    const sql = "SELECT * FROM staff_maintains_pbooks where title LIKE '%" + title + "%' AND author_name LIKE '%" + author + "%' AND category LIKE '%" + category + "%'And staffid='"+req.session.staffid+"'"
+    const sql = "SELECT * FROM staff_maintains_pbooks where title LIKE '%" + title + "%' AND author_name LIKE '%" + author + "%' AND category LIKE '%" + category + "%'And staffid='"+req.session.book_mid+"'"
     console.log(sql);
     con.query(sql, function (err, result) {
 
@@ -359,6 +414,8 @@ app.get('/searchingebooks', function (req, res) {
 
     })
 });
+
+
 app.get('/delete-staffrecord', function (req, res) {
     var staff_id = req.query.staff_id;
     var email = req.query.email;
@@ -375,17 +432,18 @@ app.get('/delete-staffrecord', function (req, res) {
             if (err) console.log(err);
             const results = JSON.parse(JSON.stringify(result));
             if (results.length >0){
-                const staff_min = "SELECT s.staff_id FROM staff_info si JOIN staff s ON si.email = s.email LEFT JOIN maintains m ON s.staff_id = m.staff_id WHERE si.job = 'Books Manager' GROUP BY s.staff_id ORDER BY COUNT(m.isbn) ASC LIMIT 1;"
-                con.query(staff_min,function(err,result){
+                const check_count = "Select staff_id from staff where staff_id in(Select staff_id from staff s, staff_info si where s.email = si.email and si.job = 'books manager') and staff_id <> ?"
+                con.query(check_count,[staff_id],function(err,result){
                     if (err) console.log(err);
                     const x = JSON.parse(JSON.stringify(result));
-                    const new_staff = x[0].staff_id;
-                    console.log(new_staff);
-                    if(x.length>0 && new_staff!=staff_id){
                     
-                    console.log(new_staff);
+    
+                
+                    if(x.length>0){
+                        staff_change =  x[Math.floor(Math.random() * x.length)].staff_id;
+                    
                     const new_maintains = 'Update maintains set staff_id = ? where staff_id =?'
-                    con.query(new_maintains,[new_staff,staff_id],function(err,result){
+                    con.query(new_maintains,[staff_change,staff_id],function(err,result){
                         if (err) console.log(err);
                         const works_for = "DELETE from works_for where worker_staff_id=?"
                         con.query(works_for, [staff_id], function (err, result) {
@@ -423,27 +481,24 @@ app.get('/delete-staffrecord', function (req, res) {
                         })
         }
           })
-      
-      
-
       }
       else if(job == 'Ebooks Manager'){ 
-       
         const isbnlist = 'Select isbn from maintains where staff_id = ?'
         con.query(isbnlist,[staff_id],function(err,result){
             const results = JSON.parse(JSON.stringify(result));
             if (results.length >0){
-                const staff_min = "SELECT s.staff_id FROM staff_info si JOIN staff s ON si.email = s.email LEFT JOIN maintains m ON s.staff_id = m.staff_id WHERE si.job = 'Ebooks Manager' GROUP BY s.staff_id ORDER BY COUNT(m.isbn) ASC LIMIT 1;"
-                con.query(staff_min,function(err,result){
+                const check_count = "Select staff_id from staff where staff_id in(Select staff_id from staff s, staff_info si where s.email = si.email and si.job = 'ebooks manager') and staff_id <> ?"
+                con.query(check_count,[staff_id],function(err,result){
+                    if (err) console.log(err);
                     const x = JSON.parse(JSON.stringify(result));
-                    const new_staff = x[0].staff_id;
-                    
-                    console.log(new_staff);
-                    if(x.length>0 && new_staff!=staff_id){
-                    
+                   
+    
+                
+                    if(x.length>0){
+                        staff_change =  x[Math.floor(Math.random() * x.length)].staff_id;
                     console.log(new_staff);
                     const new_maintains = 'Update maintains set staff_id = ? where staff_id =?'
-                    con.query(new_maintains,[new_staff,staff_id],function(err,result){
+                    con.query(new_maintains,[staff_change,staff_id],function(err,result){
                         if (err) console.log(err);
                         const works_for = "DELETE from works_for where worker_staff_id=?"
                         con.query(works_for, [staff_id], function (err, result) {
@@ -492,16 +547,17 @@ app.get('/delete-staffrecord', function (req, res) {
         con.query(userlist,[staff_id],function(err,result){
             const results = JSON.parse(JSON.stringify(result));
             if (results.length >0){
-                const staff_min = "SELECT s.staff_id FROM staff_info si JOIN staff s ON si.email = s.email LEFT JOIN keeps_track_of k ON s.staff_id = k.staff_id WHERE si.job = 'Records Manager' GROUP BY s.staff_id ORDER BY COUNT(k.user_id) ASC LIMIT 1;"
-                con.query(staff_min,function(err,result){
+                const check_count = "Select staff_id from staff where staff_id in(Select staff_id from staff s, staff_info si where s.email = si.email and si.job = 'records manager') and staff_id <> ?"
+                con.query(check_count,[staff_id],function(err,result){
+                    if (err) console.log(err);
                     const x = JSON.parse(JSON.stringify(result));
-                    const new_staff = x[0].staff_id;
-                    console.log(new_staff);
-                    if(x.length>0 && new_staff!=staff_id){
+                   
+    
+                
+                    if(x.length>0){staff_change =  x[Math.floor(Math.random() * x.length)].staff_id;
                     
-                    console.log(new_staff);
                     const new_keeps_track = 'Update keeps_track_of set staff_id = ? where staff_id =?'
-                    con.query(new_keeps_track,[new_staff,staff_id],function(err,result){
+                    con.query(new_keeps_track,[staff_change,staff_id],function(err,result){
                         if (err) console.log(err);
                         const works_for = "DELETE from works_for where worker_staff_id=?"
                         con.query(works_for, [staff_id], function (err, result) {
@@ -517,13 +573,11 @@ app.get('/delete-staffrecord', function (req, res) {
                             })
                         })
                     })
-                    
-           
+                           
          }
         else{
             res.send("records manager")
-
-        }})}else{
+}})}else{
             const works_for = "DELETE from works_for where worker_staff_id=?"
                         con.query(works_for, [staff_id], function (err, result) {
                             if (err) console.log(err);
@@ -538,26 +592,8 @@ app.get('/delete-staffrecord', function (req, res) {
                             })
                         })
         }
-          })
-      
-
-      }
-   
-    // const works_for = "DELETE from works_for where worker_staff_id=?"
-    // con.query(works_for, [staff_id], function (err, result) {
-    //     if (err) console.log(err);
-    //     const staff = "DELETE from staff where staff_id=?"
-    //     con.query(staff, [staff_id], function (err, result) {
-    //         if (err) console.log(err);
-    //         const staff_info = "DELETE from staff_info where email=?"
-    //         con.query(staff_info, [email], function (err, result) {
-    //             if (err) console.log(err);
-    //             res.send('Record with staff id =' + staff_id + ' is deleted from database')
-    //         })
-    //     })
-    // })
-}) });
-
+          }) }
+    }) });
 app.post('/addstaff', function (req, res) {
     const { staff_id, name, email, password, address, job } = req.body;
     bcrypt.genSalt(10, (err, salt) => {
@@ -790,7 +826,7 @@ app.post('/addebook_manager',function(req,res){
                             con.query(book_publish,[isbn,publisherr_id,year],function(err,result){
                                 if (err) console.log(err);
                                 const staffmaintains = 'Insert into maintains values(?,?);'
-                                con.query(staffmaintains,[isbn,req.session.staffid],function(err,result){
+                                con.query(staffmaintains,[isbn,req.session.ebook_mid],function(err,result){
                                     if (err) console.log(err);
                                     res.redirect('/ebooksmanager')
                                 })
@@ -835,7 +871,7 @@ app.post('/addbook_manager',function(req,res){
                             con.query(book_publish,[isbn,publisherr_id,year],function(err,result){
                                 if (err) console.log(err);
                                 const staffmaintains = 'Insert into maintains values(?,?);'
-                                con.query(staffmaintains,[isbn,req.session.staffid],function(err,result){
+                                con.query(staffmaintains,[isbn,req.session.book_mid],function(err,result){
                                     if (err) console.log(err);
                                     res.redirect('/booksmanager')
                                 })
@@ -1023,23 +1059,28 @@ app.get('/delete-ebookrecord', function (req, res) {
 //User book page
 
 app.get('/userbooksview', function (req, res) {
-
+    if (req.session.userid){
     const sql = "SELECT * FROM user_books WHERE availability = 'yes';"
     con.query(sql, function (error, result) {
         if (error) throw error;
         console.log(result);
         res.render(path.join(__dirname, '../views/userbooks'), { books: result })
     })
-});
+}else{
+    res.redirect('/error')
+}});
 app.get('/userebookView', function (req, res) {
-    
+    if(req.session.userid){
     const sql = "select * from user_ebooks;"
     con.query(sql, function (error, result) {
         if (error) throw error;
         console.log(result);
         res.render(path.join(__dirname, '../views/userebook'), { books: result })
     })
-});
+}
+else{
+    res.redirect('/error')
+}});
 
 
 app.post('/upload', upload.single('image'), (req, res) => {
@@ -1105,6 +1146,7 @@ app.post('/uploadpdf', upload.single('file'), (req, res) => {
 
   });
   app.post('/borrowbooks', function (req, res) {
+    if(req.session.userid){
     sql= 'Insert into borrows(user_id,isbn,issue_date,due_date) values(?,?,sysdate(),DATE_ADD(sysdate(), INTERVAL 7 DAY))'
     con.query(sql,[req.session.userid,req.body.isbn],function(err,result){
         if(err) {console.log(err)
@@ -1117,47 +1159,61 @@ app.post('/uploadpdf', upload.single('file'), (req, res) => {
             res.send('success')
         })
     }
-    })
+    })}
+    else{
+        res.redirect('/')
+    }
 });
 app.get('/recordsmanager', function (req, res) {
+   if(req.session.record_mid){
     const sql = "Select * from staff_user_records where staff_id = ?"
-    con.query(sql, [req.session.staffid],function (error, result) {
+    con.query(sql, [req.session.record_mid],function (error, result) {
         if (error) throw error;
         console.log(result);
-        res.render(path.join(__dirname, '../views/recordsmanager'), { records: result })
+        staff_name = "SELECT s.staff_id, si.name FROM staff s JOIN staff_info si ON s.email = si.email WHERE s.staff_id = ?;"
+        con.query(staff_name, [req.session.record_mid], function (error, result1){
+           if (error) throw error;
+            
+        res.render(path.join(__dirname, '../views/recordsmanager'), { records: result, data:result1})        
     })
-
+    })
+}else{
+        res.redirect('/error')
+    }
 })
 
 
 app.get('/userborrowrecords', function (req, res) {
+    if(req.session.userid){
     const sql = "Select * from user_borrows_books where user_id = ?"
     con.query(sql, [req.session.userid],function (error, result) {
         if (error) throw error;
         console.log(result);
         res.render(path.join(__dirname, '../views/user-borrow-records'), { records: result })
     })
-
+    }else{
+        res.redirect('/error')
+    }
 })
 
 
 app.post('/userreturnbook', function (req, res) {
-    console.log(req.body.isbn);
-    returnbook = `Update borrows set return_date = sysdate() where user_id=${req.session.userid}`
+    isbn = req.body.isbn;
+    returnbook = `Update borrows set return_date = sysdate() where user_id=? and isbn = ?`
     console.log(returnbook)
-    con.query(returnbook, function (err, result) {
+    con.query(returnbook, [req.session.userid,isbn],function (err, result) {
         if (err) {
             console.log(err)
             res.send('error')
         }
         else {
-        pb = `Update physical_book set availability = 'yes' where isbn=${req.body.isbn}`
-        con.query(pb,function (err, result) {
+        pb = `Update physical_book set availability = 'yes' where isbn=?`
+        con.query(pb,[isbn],function (err, result) {
             if (err) console.log(err);
             else {
-                console.log('adan')
+              
                 res.redirect('/userborrowrecords');
-                // res.redirect('/userborrowrecords')
+                
             }
             
         })
@@ -1169,269 +1225,3 @@ app.post('/userreturnbook', function (req, res) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const con = require('./config');
-// const express = require('express');
-// const app = express();
-// const path = require('path');
-// // con.connect(function(err){
-// //     if (err) throw err;
-// //     con.query('Select * from booklib',function(errr,res){
-// //         if (errr) throw errr;
-// //         console.log(res[0]);
-// //     })
-// // })
-
-// const bodyParser = require('body-parser');
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(express.static(path.join(__dirname, '../public')));
-// app.set('view engine', 'ejs');
-
-// app.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../public/index.html'))
-// })
-// app.post('/signup', (req, res) => {
-//     const { name, password, email, address, tel, rectel } = req.body;
-//     const user_info = "INSERT INTO user_info(name,email,password,address) VALUES(?,?,?,?)";
-//     // const telno = "INSERT INTO booklib(isbn,title,author) VALUES(?,?,?)";
-//     con.query(user_info, [name, email, password, address], function (error1, result1) {
-//         if (error1) throw error1;
-//         const user = "INSERT INTO user(email) VALUES('" + email + "')";
-//         con.query(user, function (error2, result2) {
-//             if (error2) throw error2;
-//             con.query('SELECT user_id from user where email = ?', [email], function (error3, result3) {
-//                 if (error3) throw error3;
-//                 results = JSON.parse(JSON.stringify(result3));
-//                 uid = results[0].user_id;
-
-//                 const telno = "INSERT INTO user_telno(user_id,telno) VALUES(?,?)";
-//                 con.query(telno, [uid, tel], function (error4, result4) {
-//                     if (error4) throw error4;
-//                     else {
-//                         if (rectel == '') { res.redirect('/user') }
-//                         else {
-//                             const recttelquery = "INSERT INTO user_telno(user_id,telno) VALUES(?,?)";
-//                             con.query(recttelquery, [uid, rectel], function (error5, result5) {
-//                                 if (error4) throw error5;
-//                                 res.redirect('/user')
-//                             })
-//                         }
-//                     }
-//                 });
-//             });
-//         })
-//     })
-// });
-// app.post('/login', (req, res) => {
-//     const { email, password } = req.body;
-//     const login = `SELECT * FROM user_info WHERE email = ? AND password = ?`;
-//     con.query(login, [email, password], (err, results) => {
-//         if (err) throw err;
-//         else {
-//             if (results.length === 0) {
-//                 res.send('error');
-//             }
-//             else {
-//                 res.send('success')
-//             }
-//         }
-//     });
-// });
-// app.post('/alogin', (req, res) => {
-//     const { email, password } = req.body;
-//     console.log(email,password);
-//     const login = `SELECT * FROM staff_info WHERE email = ? AND password = ?`;
-//     con.query(login, [email, password], (err, results) => {
-//         if (err) throw err;
-//         else {
-//             if (results.length === 0) {
-//                 res.send('error')    
-//             }
-//             else {
-//                 res.send('success')
-//             }
-//         }
-//     });
-// });
-// app.get('/user', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../public/user.html'))
-// })
-// app.get('/admin', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../public/admin.html'))
-// })
-
-// app.get('/user_records', function (req, res) {
-//     const sql = "Select * from user_records_admin"
-//     con.query(sql, function (error, result) {
-//         if (error) throw error;
-//         console.log(result);
-//         res.render(path.join(__dirname, '../views/user_records'), { users: result })
-//     })
-
-// })
-// app.get('/staff_records', function (req, res) {
-//     const sql = "Select * from staff_records"
-//     con.query(sql, function (error, result) {
-//         if (error) throw error;
-//         console.log(result);
-//         res.render(path.join(__dirname, '../views/staff_records'), { staff: result })
-//     })
-
-// })
-
-// app.get('/searching', function (req, res) {
-//     const name = req.query.name;
-//     const email = req.query.email;
-//     const address = req.query.address;
-
-
-//     const sql = "SELECT * FROM user_records_admin where Name LIKE '%" + name + "%' AND Email LIKE '%" + email + "%' AND Address LIKE '%" + address + "%'"
-//     con.query(sql, [name, email, address], function (err, result) {
-//         res.send(result);
-//     })
-// })
-// app.get('/searchingstaff', function (req, res) {
-//     const name = req.query.name;
-//     const email = req.query.email;
-//     const job = req.query.job;
-
-
-//     const sql = "SELECT * FROM staff_records where Name LIKE '%" + name + "%' AND Job LIKE '%" + job + "%' AND Email LIKE '%" + email + "%'"
-//     con.query(sql, [name, job, email], function (err, result) {
-//         res.send(result);
-//     })
-// })
-// app.get('/delete-staffrecord', function (req, res) {
-//     var staff_id = req.query.staff_id;
-//     var email = req.query.email;
-//     console.log(staff_id, email)
-
-//     const works_for = "DELETE from works_for where worker_staff_id=?"
-//     con.query(works_for, [staff_id], function (err, result) {
-//         if (err) console.log(err);
-//         // res.send('Record with staff id =' + staff_id + ' is deleted from database')
-//         const staff = "DELETE from staff where staff_id=?"
-//         con.query(staff, [staff_id], function (err, result) {
-//             if (err) console.log(err);
-//             const staff_info = "DELETE from staff_info where email=?"
-//             con.query(staff_info, [email], function (err, result) {
-//                 if (err) console.log(err);
-//                 res.send('Record with staff id =' + staff_id + ' is deleted from database')
-//             })
-//         })
-//     })
-// });
-// app.post('/addstaff', function (req, res) {
-//     const { staff_id, name, email, password, address, job} = req.body;
-//     console.log(name, staff_id)
-//     const staff_info = "Insert Into staff_info values(?,?,?,?,?)"
-//     con.query(staff_info, [email, job, name, address, password], function (error, result) {
-//         if (error) console.log(error);
-//         const staff = 'INSERT INTO staff values(?,?)'
-//         con.query(staff, [staff_id, email], function (error, result) {
-//             if (error) console.log(error);
-//             const managerdb = "SELECT worker_staff_id FROM works_for WHERE manager_staff_id IS NULL;"
-//             con.query(managerdb,function(err,result){
-//                 const results = JSON.parse(JSON.stringify(result));
-//                 const manager = results[0].worker_staff_id;
-//                 const works_for = 'Insert into works_for values(?,?)'
-//                 con.query(works_for, [staff_id,manager], function (error, result) {
-//                 if (error) console.log(error);
-//                 res.redirect('/staff_records')
-//             })
-//             })
-            
-//         })
-
-//     }
-//     )
-// });
-
-// app.get('/updatestaff',function(req,res){
-//     var staff_id = req.query.staff_id;
-//     var sql = "Select * from staff_info where email=(Select email from staff where staff_id=?)"
-//     con.query(sql, [staff_id], function (err, result) {
-//         if (err) console.log(err);
-//         console.log(result)
-//         result[0].staffid = staff_id
-//         res.send(result)    
-//     })
-
-// })
-
-// app.post('/updatestaff', function (req, res) {
-//         const staff_id = req.body.staff_id
-//         const name = req.body.name
-//         const emailadd = req.body.email
-//         const address = req.body.address
-//         const job = req.body.job
-//         console.log(name)
-//         const emailcheck = 'Select email from staff where staff_id = ?'
-//         con.query(emailcheck, [staff_id], function (err, result) {
-//             if (err) console.log(err);
-//             const results = JSON.parse(JSON.stringify(result));
-//             console.log(results);
-//             const emaildb = results[0].email
-//             if (emailadd == emaildb) {
-//                 const staff_info = "UPDATE staff_info set name = ? , address = ?, job=? where email =(Select email from staff where staff_id = ?)"
-//                 con.query(staff_info, [name, address, job, staff_id], function (err, result) {
-//                     if (err) console.log(err);
-//                     res.redirect('/staff_records')
-
-//                 })
-//             }
-//             else{
-//                 null_email = "Update staff set email = null where staff_id = ?"
-//                 con.query(null_email,[staff_id],function(err,result){
-//                     update_staffinfo = "Update staff_info set email = ? where email = ?"
-//                     con.query(update_staffinfo,[emailadd,emaildb],function(err,result){
-//                         if (err) console.log(err);
-//                         const updatestaff = 'Update staff set email = ? where staff_id = ?'
-//                         con.query(updatestaff,[emailadd,staff_id],function(err,result){
-//                             if (err) console.log(err);
-//                             res.redirect('/staff_records')
-//                         })
-
-//                     })
-//                 })
-//             }
-
-//         })
-// })
-
-// app.get('/userbooksview', function (req, res) {
-    
-//     const sql = "select * from user_books"
-//     con.query(sql, function (error, result) {
-//         if (error) throw error;
-//         console.log(result);
-//         res.render(path.join(__dirname, '../views/book'), { books: result })
-//     })
-// });
-
-// app.listen(4200);

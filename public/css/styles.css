@@ -1,6 +1,7 @@
 /*FONTS TO BE USED*/
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
 
 *{
     margin: 0;
@@ -84,25 +85,27 @@ html{
     width: 100%;    
 }
 
-#navbar-contact_us-btn{
+#navbar-logout-btn{
     height: 40px;
     color:#F1F6F9;
     background-color: #13005A;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
     border: 2px solid #9BA4B5;
     border-radius: 10px;
     opacity: 80%;
     transition: 0.5s;
 }
 
-#navbar_contact_us-icon{
+#nav-logout-icon{
     margin-top: -3px;
-    width: 25px;
-    height: 25px;
+    margin-left: 5px;
+    width: 20px;
+    height: 20px;
+    filter: invert();
 }
 
-#navbar-contact_us-btn:hover{
+#navbar-logout-btn:hover{
     opacity: 100%;
 }
 
@@ -110,7 +113,7 @@ html{
 .welcome_screen_elements_container{
     width: 100%;
     height: 100vh;
-    background: linear-gradient(181deg, rgb(2, 0, 97) 15%, rgb(27, 8, 172) 158.5%);
+    background: linear-gradient(181deg, rgb(4, 3, 76) 15%, rgb(28, 103, 217) 158.5%);
 }
 
 #main-heading-text{
@@ -118,11 +121,33 @@ html{
     font-size: 2.8rem;
     color: #F1F6F9;
     margin-top: 200px;
+    overflow: hidden;
+}
+
+.typing-demo {
+    width: 17ch;
+    animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid;
+    font-family: monospace;
+    font-size: 1em;
+  }
+  
+@keyframes typing {
+    from {
+      width: 0
+    }
+}
+      
+@keyframes blink {
+    50% {
+      border-color: transparent
+}
 }
 
 #main-heading-sub_text{
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 800;
+    font-family: 'Kalam', cursive;
     font-size: 1.6rem;
     margin-top: 20px;
     color: #9BA4B5;
@@ -229,102 +254,6 @@ html{
     padding: 10px 20px 0px 20px;
 }
 
-/*LOGIN SIGNUP MODALS*/
-
-#ModalTitle{
-    display: block;
-    font-family: 'Fira Sans', sans-serif;
-    font-size: 2rem;
-    color: #212A3E;
-}
-
-.modal-input-group{
-    position: relative;
-}
-
-.modal-input-field{
-    border: 1px solid #9BA4B5;
-    border-radius:8px;
-    padding: 10px 45px;
-    width: 320px;
-    display: block;
-    margin: 15px auto;
-    outline: none;
-}
-
-#icon{
-    position: absolute;
-    left: 82px;
-    top: 11px;
-    font-size: 22px;
-}
-
-#login-signup_btn{
-    display: block;
-    margin: 40px auto 10px;
-    padding: 10px 70px 10px 70px;
-    border-radius: 30px;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: bold;
-    color: #F1F6F9;
-    background-color: #13005A;
-    transition: 0.2s ease-in-out;
-}
-
-#login-signup_btn:hover{
-    color: #13005A;
-    background-color: #F1F6F9;
-}
-
-#signup-signin-switch_a{
-    text-decoration: none;
-    cursor: pointer;
-    color: #090580;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 800;
-}
-
-
-.admin_user-switch-btn-container{
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.admin-user_btn-css{
-    font-family: 'Quicksand', sans-serif;
-    color: #ffffff;
-    margin-bottom: 15px;
-    padding: 8px 30px;
-    border: none;
-    border-radius: 10px;
-    width: 300px;
-}
-
-#admin_switch-btn{
-    background-color: #090580;
-    transition: 0.3s ease-in-out;
-}
-
-#admin_switch-btn:hover{
-    background-color: #11009E;
-}
-
-#user_switch-btn{
-    background-color: #090580;
-    transition: 0.3s ease-in-out;
-}
-
-#user_switch-btn:hover{
-    background-color: #11009E;
-}
-
-#user_admin-icon{
-    position: absolute;
-    margin-left: 170px;
-    font-size: 22px;
-}
 
 /*CARDS LAYOUT*/
 .cards-main-layout{
@@ -361,7 +290,7 @@ html{
     border-radius: 30px;
     background-color: #F1F6F9;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    height: 320px;
+    height: 330px;
     transition: 0.3s all ease-in-out;
 }
 
@@ -369,10 +298,6 @@ html{
     top: -15px;
     background-color: #13005A;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-}
-
-.card-css:hover .card-image-css{
-    filter: invert();
 }
 
 .card-css:hover .card-title{
@@ -391,9 +316,7 @@ html{
 }
 
 .card-image-css {
-    width: 50%;
-    margin-top: 30px;
-    filter: invert(5%) sepia(89%) saturate(5545%) hue-rotate(242deg) brightness(97%) contrast(114%);
+    width: 60%;
 }
   
 .card-title {
@@ -422,34 +345,6 @@ html{
     box-shadow: inset 0 -100px 0 0 #13005A;
 }
 
-.animated-div {
-    opacity: 0;
-    animation-name: SwipeUp;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-}
-
-
-@keyframes SwipeUp {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-}
-  
-.animated-div:nth-child(1) {
-    animation-delay: 0s;
-}
-  
-.animated-div:nth-child(2) {
-    animation-delay: 0.5s;
-}
-  
-.animated-div:nth-child(3) {
-    animation-delay: 1s;
-}
 
 /*ABOUT US SECTION*/
 .about-us-main-layout{
@@ -486,20 +381,20 @@ html{
 .reviews_main-layout{
     background-color: #F1F6F9;
     height: 100%;
-    padding-bottom: 100px;
+    padding-bottom: 60px;
 }
 
 .row-reviews-container{
     justify-content: center;
     gap: 40px;
     padding-top: 50px;
-    padding-bottom: 50px;
 }
 
 .review_card-css{
+    width: 600px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 10px;
-    transition: 0.2s ease;
+    transition: 0.3s ease;
     cursor: pointer;
 }
 
@@ -515,10 +410,11 @@ html{
 }
 
 .review_card-css:hover{
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    transform: scale(1.05);
     color: white;
     background-color: #212A3E;
 }
-
 
 .review_card-css:hover h5{
     color: #F1F6F9; 
@@ -663,17 +559,15 @@ textarea{
 .footer-social_icon:hover{
     color: #F1F6F9;
 }
-/* .error span{
-    color: red;
-    margin: 90px} */
-.error {
-        color: red;
-        margin: 0px 70px;
-      }
 
 
+/*TERMS AND CONDITION MODAL*/
+.modal-dialog{
+    overflow-y: initial !important;
+}
 
-
-
-      
+.modal-body{
+    height: 40vh;
+    overflow-y: auto;
+}
 

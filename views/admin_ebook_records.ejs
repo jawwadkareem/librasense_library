@@ -179,14 +179,21 @@
                                 </div>  
                             </div>
 
-                            <div class="modal-input-group" style="margin-left: 20px;">
-                                <input type="file" id="imageInput" required style="font-family: 'Comfortaa', cursive;" >
-                                <button id="successimage" type="button" onclick="uploadImage()">Upload</button>
+                            <div class="all_btn-container" style="display: flex; justify-content: center;">
+                                <div class="modal-input-group" 
+                                style="margin-left: 20px;">
+                                    <input type="file" id="imageInput" required style="font-family: 'Comfortaa', cursive; display: block;" >
+                                    <button class="upload_btn" id="successimage" type="button" onclick="uploadImage()">Upload Image</button>
                                 </div>
                                 <div class="modal-input-group" style="margin-left: 20px;">
-                                    <input type="file" id="pdfInput" required style="font-family: 'Comfortaa', cursive;" >
-                            <button id="successpdf" type="button" onclick="uploadFile()">Upload File</button>
+                                    <div>
+                                        <input type="file" id="pdfInput" required style="font-family: 'Comfortaa', cursive; display: block;">
+                                        <button class="upload_btn" id="successpdf" type="button" onclick="uploadFile()" style="margin-left: 8px;">Upload File</button>
                                     </div>
+
+                                </div>
+                            </div>
+                            
                             <div class="add_now_btn-container">
                                 <button id="add_now_btn">
                                     <span>Add Now</span>

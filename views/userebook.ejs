@@ -28,7 +28,7 @@
         <div class="header-content-container col-lg-12">
           <div class="header_text-container">
             <h2 id="header_main-heading">
-              WELCOME TO <span style="color: #9ba4b5">BOOKS SECTION</span>
+              WELCOME TO <span style="color: #9ba4b5">E-BOOKS SECTION</span>
             </h2>
             <hr style="
                   width: 100px;
@@ -58,7 +58,7 @@
             <ul class="list-inline">
               <% for (let i=0 ; i < 5 ;i++) { %>
                 <li class="book">
-                  <img src="images/books/<%= books[books.length-i-1].isbn %>.jpg" />
+                  <img src="images/ebooks/<%= books[books.length-i-1].isbn %>.jpg" />
                 </li>
                 <% } %>
             </ul>
@@ -70,31 +70,43 @@
     </section>
     <% } %>
       <!--ALL BOOKS DISPLAY SECTION-->
-      <section class="all-books-display-hero-container" style="margin-top: 2%;">
+      <section class="all-books-display-hero-container reveal" style="margin-top: 2%;">
+        <div class="all_books_main-heading_container" style="display: flex; justify-content: center;">
+          <h1 id="all_books-heading">Our Entire Collection</h1>
+        </div>
         <div class="container-fluid">
-          <form onsubmit="return searching()">
-            <div class="seach_field-main-container">
-              <div class="each_search_field-container">
-                <ion-icon name="search-outline" class="search-icon"></ion-icon>
-                <input type="search" name="genre" id='genre' class="search_form-input-field"
-                  placeholder="Search by Genres" autocomplete="off">
-              </div>
-              <div class="each_search_field-container">
-                <ion-icon name="search-outline" class="search-icon"></ion-icon>
-                <input type="search" name="author" id='author' class="search_form-input-field"
-                  placeholder="Search by Author" autocomplete="off">
-              </div>
-              <div class="each_search_field-container">
-                <ion-icon name="search-outline" class="search-icon"></ion-icon>
-                <input type="search" name="name" id='name' class="search_form-input-field" placeholder="Search by Name"
-                  autocomplete="off">
-              </div>
-            </div>
-            <div class="search_btn-container">
-              <button id="borrow_now-btn" class="search_btn" onclick="searching()">Search</button>
-            </div>
+          <!--SEARCH FORM-->
+          <div class="search_form-container" 
+          style="max-width: fit-content; margin: auto;
+          padding: 10px 40px 30px; border-radius: 30px; margin-top: 20px !important;
+          box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+          background: linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #3973d7 100%);">
 
-          </form>
+            <form onsubmit="return searching()">
+              <div class="search_field-main-container">
+                <div class="each_search_field-container">
+                  <img src="/images/search.png" alt="" class="search_icon">
+                  <input type="search" name="genre" id='genre' class="search_form-input-field"
+                    placeholder="Search by Genres" autocomplete="off">
+                </div>
+                <div class="each_search_field-container">
+                  <img src="/images/search.png" alt="" class="search_icon">
+                  <input type="search" name="author" id='author' class="search_form-input-field"
+                    placeholder="Search by Author" autocomplete="off">
+                </div>
+                <div class="each_search_field-container">
+                  <img src="/images/search.png" alt="" class="search_icon">
+                  <input type="search" name="name" id='name' class="search_form-input-field" placeholder="Search by Name"
+                    autocomplete="off">
+                </div>
+              </div>
+              <div class="search_btn-container">
+                <button id="search_now-btn" class="search_btn" onclick="searching()">Search</button>
+              </div>
+            </form>
+          </div>
+
+          <!--BOOK ROWS-->
           <div class="row">
             <div class="books_display-container col-lg-12">
               <table style="border-collapse: separate; border-spacing: 60px !important; border: none !important;">
@@ -240,6 +252,8 @@
         </div>
       </section>
 
+
+      <script src="/js/reveal_effect.js"></script>
       <!-- Optional JavaScript -->
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
